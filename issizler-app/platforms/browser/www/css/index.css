@@ -42,3 +42,11 @@ body {
 .indexEmail {
     font-size: 11px;
 }
+.ProfileSummary{
+    text-transform: uppercase;
+}
+.ProfileImage{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}

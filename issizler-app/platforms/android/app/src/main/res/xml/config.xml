@@ -4,7 +4,10 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>issizler</name>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <name>işsizler</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>

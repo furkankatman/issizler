@@ -1,0 +1,49 @@
+<md-content>
+    <md-card layout-padding>
+
+
+        <div layout="column">
+            <div layout="column">
+                <div layout="row" layout-align="space-around start">
+
+                    <img class="ProfileImage" ng-src="{{User.ProfileImage}}" width="90" height="90" alt="">
+                    <md-switch ng-model="isEdit">
+                        Profilini Düzenle
+                    </md-switch>
+                </div>
+
+                <div class="ProfileSummary">
+                    <p>{{User.Name}}</p>
+                    <p>{{User.Surname}}</p>
+                    <p>{{User.Age}}</p>
+                </div>
+
+            </div>
+            <div layout="column" ng-show="isEdit">
+                <md-input-container>
+                    <label>Adınız</label>
+                    <input type="text" name="name" ng-model="User.Name">
+                </md-input-container>
+
+                <md-input-container>
+                    <label>SoyAdınız</label>
+                    <input type="text" name="surname" ng-model="User.Surname">
+                </md-input-container>
+
+
+                <md-input-container>
+                    <label>Yaşınız</label>
+                    <input type="text" name="age" ng-model="User.Age">
+                </md-input-container>
+
+                <md-button class="md-raised" ng-click="PickProfilePhoto()">Fotoraf Ekle</md-button>
+
+                <md-button class="md-raised" ng-click="UpdateProfile()">Güncelle</md-button>
+            </div>
+
+        </div>
+
+
+
+    </md-card>
+</md-content>

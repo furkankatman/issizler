@@ -26,7 +26,10 @@
     "cordova": {
         "plugins": {
             "cordova-plugin-whitelist": {},
-            "cordova-plugin-browsersync": {}
+            "cordova-plugin-browsersync": {},
+            "cordova-plugin-camera": {
+                "ANDROID_SUPPORT_V4_VERSION": "27.+"
+            }
         },
         "platforms": [
             "android",

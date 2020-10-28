@@ -7,10 +7,13 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-plugin-browsersync": {
+      "PACKAGE_NAME": "io.amazingjobs.issizler"
+    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
     },
-    "cordova-plugin-browsersync": {
+    "cordova-plugin-camera": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
     }
   },
