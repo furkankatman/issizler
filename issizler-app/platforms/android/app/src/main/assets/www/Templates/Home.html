@@ -1,18 +1,48 @@
 <md-content>
     <md-card layout-padding>
-        <h1>Merhaba işsiz kardeşim :)))</h1>
-
-        <md-button ng-click="IamJobless()" class="md-raised">
-            Bende İşşizim
-        </md-button>
-        <md-button ng-click="LookingForJob()" class="md-raised">
-            Bende İş Arıyorum
-        </md-button>
+        <div>
+            <span>Merhaba işsiz kardeşim :)))</span>
+            <div layout="column" class="TodaysMessage">
+                <label for="TodaysMessage">Bugüne Not'un:::</label>
+                <input name="TodaysMessage" type="text" ng-model="TodaysMessage.Message">
+                <md-button class="md-raised" md-colors="{'background':'pink'}"
+                    ng-click="AddTodaysMessage(TodaysMessage)">Gönder</md-button>
+            </div>
+            <div>
+                <md-button ng-click="IamJobless()" class="md-raised">
+                    Bende İşşizim
+                </md-button>
+                <md-button ng-click="LookingForJob()" class="md-raised">
+                    Bende İş Arıyorum
+                </md-button>
+            </div>
+        </div>
+        <div>
+            <span>Hobilerini Seç hadi durma :)))</span>
+            <div>
+                <input type="text" placeholder="hobini bulamadın mı ?" ng-model="hobbyToEnter.Name">
+                <button class="md-raised" ng-click="AddHobby()">Ekle</button>
+            </div>
+            <div class="Hobby" md-colors="{'background':'green'}" ng-repeat="hobby in Hobbies">
+                <div>{{hobby.Name}}</div>
+                <div><i class="fa fa-star"></i> {{hobby.StarCount}}</div>
+                <md-button class="md-raised" ng-click="MeTo(hobby)">Bende :))</md-button>
+            </div>
+        </div>
     </md-card>
 
     <md-card layout-padding>
         <h2>Aramıza Yeni Katılanlar</h2>
-        <div ng-repeat="user in Users">
+        <div class="UserSummary" ng-repeat="user in AppUsers">
+            <div layout="column" layout-align="start start">
+                <img class="ProfileImage" ng-src="{{user.ProfileImage}}" alt="">
+                <div layout="column">
+                    <span>{{user.Age}}</span>
+                    <span>{{user.Name}} {{user.Surname}}</span>
+                    <span>{{user.Name}}</span>
+                    <span>{{user.Created|date:'dd.MM.yyyy'}}</span>
+                </div>
+            </div>
 
         </div>
     </md-card>

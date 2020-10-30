@@ -66,6 +66,8 @@ var app = {
             $scope.fib = firebase;
             $scope.fib.db = firebase.database();
             $scope.los = localStorageService;
+            $scope.hobbyToEnter = { Name: "", StarCount: 1, Created: 0 };
+            $scope.TodaysMessage = { Message: "", Created: 0 }
             $scope.Logout = function () {
                 $scope.fib.auth().signOut().then(function () {
                     console.log('Signed Out');
@@ -86,7 +88,70 @@ var app = {
                     $state.go("Register");
                 }
             }
-
+            $scope.AddHobby = function () {
+                if ($scope.hobbyToEnter.Name == null || $scope.hobbyToEnter.Name == "") {
+                    return
+                }
+                var hobbiesRef = $scope.fib.db.ref("Hobbies");
+                hobbiesRef.orderByChild("Name").equalTo($scope.hobbyToEnter.Name).once("value").then(function (snapshot) {
+                    if (snapshot.hasChildren()) {
+                        console.log("Bu hobby mevcut!!!")
+                        return;
+                    } else {
+                        var key = $scope.fib.db.ref("Hobbies").push().key;
+                        $scope.hobbyToEnter.Created = moment().valueOf()
+                        var myhobby = angular.copy($scope.hobbyToEnter);
+                        $scope.fib.db.ref("Hobbies").child(key).set(angular.copy($scope.hobbyToEnter)).then(function () {
+                            $scope.hobbyToEnter = { Name: "", StarCount: 1 }
+                            setTimeout(() => {
+                                $scope.$apply()
+                            }, 100);
+                        });
+                        var key = $scope.fib.db.ref("MyHobbies").child($scope.los.get("User").uid).push().key;
+                        $scope.fib.db.ref("MyHobbies").child($scope.los.get("User").uid).child(key).set(myhobby);
+                    }
+                })
+            }
+            $scope.MeTo = function (hobby) {
+                var hobbiesRef = $scope.fib.db.ref("Hobbies");
+                hobbiesRef.orderByChild("Name").equalTo(hobby.Name).once("value").then(function (snapshot) {
+                    snapshot.forEach(function (val) {
+                        $scope.fib.db.ref('Hobbies').child(val.key).child('StarCount')
+                            .set(firebase.database.ServerValue.increment(1))
+                    })
+                })
+                var key = $scope.fib.db.ref("MyHobbies").child($scope.los.get("User").uid).push().key;
+                $scope.fib.db.ref("MyHobbies").child($scope.los.get("User").uid).child(key).set(angular.copy(hobby));
+            }
+            $scope.AddTodaysMessage = function (msg) {
+                var todaysMessageRef = $scope.fib.db.ref("TodaysMessage");
+                var key = todaysMessageRef.push().key;
+                $scope.TodaysMessage.Created = moment().valueOf();
+                todaysMessageRef.child(key).set(angular.copy(msg)).then(function () {
+                    $scope.TodaysMessage = { Message: "", Created: 0 }
+                    setTimeout(() => {
+                        $scope.$apply()
+                    }, 100);
+                })
+            }
+            $scope.fib.db.ref("Hobbies").on("value", function (snapshot) {
+                $scope.Hobbies = [];
+                snapshot.forEach(function (val) {
+                    $scope.Hobbies.push(val.val())
+                })
+                setTimeout(() => {
+                    $scope.$apply()
+                }, 100);
+            })
+            $scope.fib.db.ref("Users").on("value", function (snapshot) {
+                $scope.AppUsers = [];
+                snapshot.forEach(function (val) {
+                    $scope.AppUsers.push(val.val())
+                })
+                setTimeout(() => {
+                    $scope.$apply()
+                }, 100);
+            })
 
 
 
