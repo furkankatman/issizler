@@ -1,4 +1,4 @@
-<md-content>
+<md-content md-swipe-left="onSwipeLeft($event, $target)">
     <md-card layout-padding>
         <div>
             <span>Merhaba işsiz kardeşim :)))</span>
@@ -16,6 +16,23 @@
                     Bende İş Arıyorum
                 </md-button>
             </div>
+        </div>
+        <div ng-show="!departmentToAdd.Added">
+            <span>Hangi Bölümü Bitirdin ?</span>
+            <md-autocomplete ng-disabled="false" md-no-cache="true" md-selected-item="departmentToAdd.Name"
+                md-search-text-change="searchTextChange(searchText)" md-search-text="searchText"
+                md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)"
+                md-item-text="item" md-min-length="0" placeholder="Türkçe Öğretmenliği"
+                input-aria-labelledby="favoriteStateLabel">
+                <md-item-template>
+                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                </md-item-template>
+                <!-- <md-not-found>
+                    "{{searchText}}" Bölümünü Bulamadık.
+                    <a ng-click="newState(searchText)">Create a new one!</a>
+                </md-not-found> -->
+            </md-autocomplete>
+            <md-button ng-click="AddDepartment()" class="md-raised">Ekle</md-button>
         </div>
         <div>
             <span>Hobilerini Seç hadi durma :)))</span>

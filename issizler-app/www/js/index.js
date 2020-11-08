@@ -32,7 +32,7 @@ var app = {
     onDeviceReady: function () {
         console.log("ready");
         var app = angular.module("issizlerApp", ['ngMaterial', 'ngSanitize', 'ngLocale', 'LocalStorageModule', 'ui.router', 'angular.filter']);
-        app.controller("MainController", function ($scope, $mdSidenav, $mdDialog, $state, localStorageService, $log) {
+        app.controller("MainController", function ($scope, $q, $mdSidenav, $mdDialog, $state, localStorageService, $log, $timeout) {
             $scope.Hello = "Hello";
             /*
           SideNav 
@@ -67,6 +67,8 @@ var app = {
             $scope.fib.db = firebase.database();
             $scope.los = localStorageService;
             $scope.hobbyToEnter = { Name: "", StarCount: 1, Created: 0 };
+            $scope.Departments = {};
+            $scope.departmentToAdd = { Name: "" }
             $scope.TodaysMessage = { Message: "", Created: 0 }
             $scope.Logout = function () {
                 $scope.fib.auth().signOut().then(function () {
@@ -152,9 +154,56 @@ var app = {
                     $scope.$apply()
                 }, 100);
             })
+            $scope.querySearch = function (query) {
+                // if (query == null || query == "") {
+                //     return $scope.Departments
+                // }
+                // return $scope.Departments.find(x => x.indexOf(query) != -1);
+                var results = query ? $scope.Departments.filter(function (item, index) {
+                    return item.toLowerCase().indexOf(query) != -1
+                }) : $scope.Departments,
+                    deferred;
+                if (self.simulateQuery) {
+                    deferred = $q.defer();
+                    $timeout(function () { deferred.resolve(results); }, Math.random() * 1000, false);
+                    return deferred.promise;
+                } else {
+                    return results;
+                }
+            }
+            $scope.AddDepartment = function () {
+                if ($scope.los.get("User") == null) {
+                    console.log("Lütfen Giriş Yapınız.")
+                }
+                else {
+                    var key = DepartmentRef.push().key;
+                    DepartmentRef.child(key).set({ Name: $scope.departmentToAdd.Name, Uid: $scope.los.get("User").uid }).then(function () {
+                        $scope.departmentToAdd.Added = true;
+                        setTimeout(function () {
+                            $scope.$apply()
+                        }, 100)
+                    })
+                }
+            }
+            $scope.onSwipeLeft = function (ev, target) {
+                console.log(ev);
+                console.log(target);
 
+            }
+            $.getJSON("/scripts/bolumler.json", function (json) {
+                $scope.Departments = json; // this will show the info it in firebug console
+            });
+            const DepartmentRef = $scope.fib.db.ref("Departments");
 
-
+            if ($scope.los.get("User") != null) {
+                DepartmentRef.orderByChild("Uid").equalTo($scope.los.get("User").uid).once("value").then(function (snapshot) {
+                    if (snapshot.hasChildren() == false) {
+                        $scope.departmentToAdd.Added = false;
+                    } else {
+                        $scope.departmentToAdd.Added = true;
+                    }
+                })
+            }
 
         })
         app.controller("ProfileController", function ($scope, $mdDialog) {
