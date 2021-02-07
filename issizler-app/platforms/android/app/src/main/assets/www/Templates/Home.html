@@ -1,72 +1,10 @@
 <md-content md-swipe-left="onSwipeLeft($event, $target)">
-    <md-card layout-padding>
-        <div>
-            <span>Merhaba işsiz kardeşim :)))</span>
-            <div layout="column" class="TodaysMessage">
-                <label for="TodaysMessage">Bugüne Not'un:::</label>
-                <input name="TodaysMessage" type="text" ng-model="TodaysMessage.Message">
-                <md-button class="md-raised" md-colors="{'background':'pink'}"
-                    ng-click="AddTodaysMessage(TodaysMessage)">Gönder</md-button>
-            </div>
-            <div>
-                <md-button ng-click="IamJobless()" class="md-raised">
-                    Bende İşşizim
-                </md-button>
-                <md-button ng-click="LookingForJob()" class="md-raised">
-                    Bende İş Arıyorum
-                </md-button>
-            </div>
-        </div>
-        <div ng-show="!departmentToAdd.Added">
-            <span>Hangi Bölümü Bitirdin ?</span>
-            <md-autocomplete ng-disabled="false" md-no-cache="true" md-selected-item="departmentToAdd.Name"
-                md-search-text-change="searchTextChange(searchText)" md-search-text="searchText"
-                md-selected-item-change="selectedItemChange(item)" md-items="item in querySearch(searchText)"
-                md-item-text="item" md-min-length="0" placeholder="Türkçe Öğretmenliği"
-                input-aria-labelledby="favoriteStateLabel">
-                <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
-                </md-item-template>
-                <!-- <md-not-found>
-                    "{{searchText}}" Bölümünü Bulamadık.
-                    <a ng-click="newState(searchText)">Create a new one!</a>
-                </md-not-found> -->
-            </md-autocomplete>
-            <md-button ng-click="AddDepartment()" class="md-raised">Ekle</md-button>
-        </div>
-        <div>
-            <span>Hobilerini Seç hadi durma :)))</span>
-            <div>
-                <input type="text" placeholder="hobini bulamadın mı ?" ng-model="hobbyToEnter.Name">
-                <button class="md-raised" ng-click="AddHobby()">Ekle</button>
-            </div>
-            <div class="Hobby" md-colors="{'background':'green'}" ng-repeat="hobby in Hobbies">
-                <div>{{hobby.Name}}</div>
-                <div><i class="fa fa-star"></i> {{hobby.StarCount}}</div>
-                <md-button class="md-raised" ng-click="MeTo(hobby)">Bende :))</md-button>
-            </div>
-        </div>
-    </md-card>
-
-    <md-card layout-padding>
-        <h2>Aramıza Yeni Katılanlar</h2>
-        <div class="UserSummary" ng-repeat="user in AppUsers">
-            <div layout="column" layout-align="start start">
-                <img class="ProfileImage" ng-src="{{user.ProfileImage}}" alt="">
-                <div layout="column">
-                    <span>{{user.Age}}</span>
-                    <span>{{user.Name}} {{user.Surname}}</span>
-                    <span>{{user.Name}}</span>
-                    <span>{{user.Created|date:'dd.MM.yyyy'}}</span>
-                </div>
-            </div>
-
-        </div>
-    </md-card>
-
-
-
-
-
-
+ <md-card>
+     <md-button class="md-raised" ng-click="state.go('WordPool')">
+         Kelime Havuzu
+     </md-button>
+     <md-button ng-click="state.go('Game')" class="md-raised">
+         Oyuna Başla
+     </md-button>
+ </md-card>
 </md-content>

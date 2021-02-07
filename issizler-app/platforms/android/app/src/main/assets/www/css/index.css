@@ -85,3 +85,26 @@ body {
 .TodaysMessage input{
     outline: none;
 }
+
+
+.WordList{
+    border: 1px solid #dedede;
+    padding: 2px;
+    margin: 2px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+.WordList div{
+    padding: 2px;
+    text-transform: uppercase;
+}
+.WordList div span:first-child{
+font-weight: bold;
+}
+.WordList img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+}

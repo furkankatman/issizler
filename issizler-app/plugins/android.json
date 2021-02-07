@@ -7,14 +7,10 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-browsersync": {
+    "cordova-plugin-browsersync-gen2": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
     },
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.amazingjobs.issizler"
-    },
-    "cordova-plugin-camera": {
-      "ANDROID_SUPPORT_V4_VERSION": "27.+",
       "PACKAGE_NAME": "io.amazingjobs.issizler"
     }
   },

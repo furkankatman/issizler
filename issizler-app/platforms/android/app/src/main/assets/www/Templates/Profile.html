@@ -13,6 +13,7 @@
                 </div>
 
                 <div class="ProfileSummary">
+                    <p>{{User.Username}}</p>
                     <p>{{User.Name}}</p>
                     <p>{{User.Surname}}</p>
                     <p>{{User.Age}}</p>
@@ -20,6 +21,10 @@
 
             </div>
             <div layout="column" ng-show="isEdit">
+                <md-input-container>
+                    <label>Kullanıcı Adınız</label>
+                    <input type="text" name="name" ng-model="User.Username">
+                </md-input-container>
                 <md-input-container>
                     <label>Adınız</label>
                     <input type="text" name="name" ng-model="User.Name">

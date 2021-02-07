@@ -7,18 +7,10 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-browsersync": {
+  "cordova-plugin-browsersync-gen2": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-browsersync"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "cordova-plugin-camera": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-camera@4.1.0"
+      "id": "cordova-plugin-browsersync-gen2"
     },
     "is_top_level": true,
     "variables": {}
