@@ -1,3 +1,37 @@
-<h1>
-    Welcome Word Game
-</h1>
+<md-content>
+    <md-card>
+        <b>Kelime Oyunu</b>
+        <div>
+            {{Game.GamePoint}} <b>Puan</b>
+        </div>
+        <div class="LetterOuterBox">
+            <div>
+                <div class="Letter" ng-click="OpenLetter($index)"
+                    ng-repeat="letter in Game.QuestionWordArray track by $index">
+                    <span ng-show="letter.Visible">{{letter.Letter}}</span>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <i class="fa fa-info"></i>
+                    <span>İpucu:</span>
+                </div>
+                <span>{{Game.QuestionWord.Definition}}</span>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <div>
+                    <md-input-container>
+                        <label for="">Tahmin Et</label>
+                        <input type="text" autocomplete="off" ng-model="GuessedWord" />
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-button ng-click="Guess()" class="md-raised">
+                        Kontrol
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-card>
+</md-content>
