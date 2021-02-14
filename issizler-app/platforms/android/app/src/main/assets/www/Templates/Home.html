@@ -1,10 +1,45 @@
 <md-content md-swipe-left="onSwipeLeft($event, $target)">
- <md-card>
-     <md-button class="md-raised" ng-click="state.go('WordPool')">
-         Kelime Havuzu
-     </md-button>
-     <md-button ng-click="state.go('Game')" class="md-raised">
-         Oyuna Başla
-     </md-button>
- </md-card>
+  <md-card>
+    <md-button
+      md-colors="{background:'amber-A200'}"
+      class="md-raised"
+      ng-click="state.go('WordPool')"
+    >
+      Kelime Havuzu
+    </md-button>
+    <md-button md-colors="{background:'green'}">
+      <i class="fa fa-trophy"></i>
+      <b>Liderlik Tablosu</b>
+      <i class="fa fa-trophy"></i>
+    </md-button>
+    <md-button
+      md-colors="{background:'green-A400'}"
+      ng-click="ShowGameSetting=true"
+      class="md-raised"
+    >
+      <!-- ng-click="state.go('Game')"  -->
+      Oyuna Başla
+    </md-button>
+  </md-card>
+  <md-card
+    layout="column"
+    layout-align="start stretch"
+    ng-show="ShowGameSetting"
+    class="ShowGameSettig"
+  >
+    <md-button
+      ng-click="StartGame(GameTypes.Training)"
+      md-colors="{background:'grey-900'}"
+    >
+      <b>Kendi Kendine [ Antrenman ]</b>
+    </md-button>
+
+    <md-button md-colors="{background:'red'}">
+      <b>Rastgele Rakip</b>
+    </md-button>
+
+    <md-button md-colors="{background:'yellow'}">
+      <b>Kullanıcı Adıyla</b>
+    </md-button>
+  </md-card>
 </md-content>
