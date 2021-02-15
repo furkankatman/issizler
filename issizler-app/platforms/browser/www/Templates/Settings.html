@@ -1,0 +1,26 @@
+<md-content class="Settings">
+  <md-card>
+    <h1>Settings</h1>
+
+    <div>
+      <div class="Items" layout="column" layout-align="start center">
+        <div layout="row" layout-align="end center">
+          <md-switch ng-change="MuteChange()" ng-model="Settings.Mute">
+            {{Settings.Mute?"Ses Kapalı":"Ses Açık"}}
+          </md-switch>
+        </div>
+       
+        <div layout="column" layout-align="start center">
+          <span>Şifre Yenile</span>
+          <md-button
+            md-colors="{background:'red-A200'}"
+            ng-click="SendResetPasswordEmail()"
+          >
+            Yenileme Emailini Gönder
+          </md-button>
+        </div>
+    </div>
+      </div>
+    </div>
+  </md-card>
+</md-content>

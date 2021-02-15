@@ -10,7 +10,8 @@ angular
       $state,
       localStorageService,
       $log,
-      $timeout
+      $timeout,
+      $transitions
     ) {
       $scope.Hello = "Hello";
       /*
@@ -82,16 +83,16 @@ angular
       // $.getJSON("http://localhost:3000/browser/www/scripts/bolumler.json", function (json) {
       //     $scope.Departments = json; // this will show the info it in firebug console
       // });
+
       $scope.GameTypes = { Training: 0, Opponent: 1 };
+      $scope.Game = { Favorites: [] };
       $scope.StartGame = function (type) {
         switch (type) {
           case $scope.GameTypes.Training:
             {
               console.log("Kendi kendine oyun açılıyor.....");
-              $scope.Game = {
-                Type: $scope.GameTypes.Training,
-                Created: moment().valueOf(),
-              };
+              $scope.Game.Type = $scope.GameTypes.Training;
+              $scope.Game.Created = moment().valueOf();
               $scope.state.go("Game");
             }
             break;
@@ -111,7 +112,8 @@ angular
         }, 100);
       });
       $scope.Score = { TotalScore: 0 };
-      if ($scope.los.get("User")) {
+
+      $scope.SetScoreBoards = function () {
         $scope.Score.ScoreBoards = [];
         const scoreBoardRef = $scope.fib.db.ref("ScoreBoard");
         scoreBoardRef.on("value", function (snapshot) {
@@ -131,6 +133,31 @@ angular
             $scope.Score.TotalScore = $scope.Score.TotalScore + val.val().Score;
           });
         });
-      }
+      };
+      $scope.GetFavorites = function () {
+        const favoritesRef = $scope.fib.db
+          .ref("Favorites")
+          .orderByChild("Email")
+          .equalTo($scope.los.get("User").email);
+        favoritesRef.on("value", function (snapshot) {
+          $scope.Game.Favorites = [];
+          snapshot.forEach(function (item) {
+            $scope.Game.Favorites.push(item.val());
+          });
+        });
+      };
+
+      $transitions.onSuccess({}, function (transition) {
+        console.log(
+          "Successful Transition from " +
+            transition.from().name +
+            " to " +
+            transition.to().name
+        );
+        if (transition.to().name == "Home" && $scope.los.get("User") != null) {
+          $scope.SetScoreBoards();
+          $scope.GetFavorites();
+        }
+      });
     }
   );

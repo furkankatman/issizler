@@ -1,13 +1,35 @@
 <md-content md-swipe-left="onSwipeLeft($event, $target)">
   <md-card>
     <md-button
+      md-colors="{background:'grey-200'}"
+      class="md-raised"
+      ng-click="state.go('Settings')"
+    >
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      <span> Ayarlar</span>
+      <i class="fa fa-cog" aria-hidden="true"></i>
+    </md-button>
+    <md-button
       md-colors="{background:'amber-A200'}"
       class="md-raised"
       ng-click="state.go('WordPool')"
     >
-      Kelime Havuzu
+      <i class="fa fa-book" aria-hidden="true"></i> <span>Kelime Havuzu</span>
+      <i class="fa fa-book" aria-hidden="true"></i>
     </md-button>
-    <md-button md-colors="{background:'green'}">
+    <md-button
+      md-colors="{background:'pink-700'}"
+      class="md-raised"
+      ng-click="state.go('FavoriteWords')"
+    >
+      <i class="fa fa-star" aria-hidden="true"></i>
+      <span>Favori Kelimeler</span>
+      <i class="fa fa-star" aria-hidden="true"></i>
+    </md-button>
+    <md-button
+      ng-click="state.go('LeaderBoard')"
+      md-colors="{background:'green'}"
+    >
       <i class="fa fa-trophy"></i>
       <b>Liderlik Tablosu</b>
       <i class="fa fa-trophy"></i>
@@ -16,9 +38,12 @@
       md-colors="{background:'green-A400'}"
       ng-click="ShowGameSetting=true"
       class="md-raised"
+      style="font-weight: bold"
     >
+      <i class="fa fa-flag-checkered"></i>
       <!-- ng-click="state.go('Game')"  -->
       Oyuna Başla
+      <i class="fa fa-flag-checkered"></i>
     </md-button>
   </md-card>
   <md-card

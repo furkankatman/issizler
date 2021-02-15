@@ -79,7 +79,11 @@
           <b ng-show="los.get('User')!=null" class="indexEmail"
             >{{los.get("User").email}}</b
           >
-          <i class="fa fa-user" ng-click="state.go('Profile')"></i>
+          <i
+            class="fa fa-user"
+            ng-show="los.get('User')!=null"
+            ng-click="state.go('Profile')"
+          ></i>
           <i class="fa fa-bars" ng-click="toggleRight()"></i>
         </div>
       </md-toolbar>
@@ -242,5 +246,7 @@
     <script src="js/Controllers/WordPoolController.js"></script>
     <script src="js/Controllers/GameController.js"></script>
     <script src="js/Controllers/LeaderBoardController.js"></script>
+    <script src="js/Controllers/SettingsController.js"></script>
+    <script src="js/Controllers/FavoriteWordsController.js"></script>
   </body>
 </html>

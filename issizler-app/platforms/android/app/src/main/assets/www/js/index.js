@@ -103,6 +103,16 @@ var app = {
             url: "/LeaderBoard",
             templateUrl: "Templates/LeaderBoard.html",
             controller: "LeaderBoardController",
+          })
+          .state("FavoriteWords", {
+            url: "/FavoriteWords",
+            templateUrl: "Templates/FavoriteWords.html",
+            controller: "FavoriteWordsController",
+          })
+          .state("Settings", {
+            url: "/Settings",
+            templateUrl: "Templates/Settings.html",
+            controller: "SettingsController",
           });
       });
     angular.bootstrap(document.body, ["issizlerApp"]);

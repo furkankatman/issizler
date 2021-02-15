@@ -205,3 +205,11 @@ md-content.md-altTheme-theme {
   border-radius: 4px;
   text-decoration: underline;
 }
+
+.Settings {
+  font-size: 18px;
+}
+.Settings .Items > div {
+  margin: 4px;
+  border: 1px solid #eee;
+}

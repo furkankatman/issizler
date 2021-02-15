@@ -43,7 +43,10 @@
           >
             Kontrol
           </md-button>
-          <md-button md-colors="{background:'indigo-A200'}"
+          <md-button
+            ng-show="!IsFavorite(Game.QuestionWord)"
+            ng-click="Favorite(Game.QuestionWord)"
+            md-colors="{background:'indigo-A200'}"
             ><i class="fa fa-star"></i> Favorilere Ekle
           </md-button>
         </div>
