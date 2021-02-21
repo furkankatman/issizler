@@ -55,7 +55,8 @@ angular
           .then(
             function () {
               console.log("Signed Out");
-              $scope.los.set("User", null);
+              // $scope.los.set("User", null);
+              localStorage.clear();
               $scope.$apply();
             },
             function (error) {
@@ -65,15 +66,16 @@ angular
         $state.go("Home");
       };
 
-      $scope.fib.db.ref("Users").on("value", function (snapshot) {
-        $scope.AppUsers = [];
-        snapshot.forEach(function (val) {
-          $scope.AppUsers.push(val.val());
+      $scope.fib.db
+        .ref("Users")
+        .orderByChild("Status")
+        .equalTo(1)
+        .on("value", function (snapshot) {
+          $scope.los.set("OnlineCount", snapshot.numChildren());
+          setTimeout(() => {
+            $scope.$apply();
+          }, 100);
         });
-        setTimeout(() => {
-          $scope.$apply();
-        }, 100);
-      });
 
       $scope.onSwipeLeft = function (ev, target) {
         console.log(ev);

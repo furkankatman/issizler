@@ -22,7 +22,10 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
     $scope.Game.QuestionWordArray[i].Visible = true;
   };
   $scope.Guess = function () {
-    if ($scope.GuessedWord == $scope.Game.QuestionWord.Value) {
+    if (
+      $scope.GuessedWord.toLowerCase() ==
+      $scope.Game.QuestionWord.Value.toLowerCase()
+    ) {
       //   $scope.ScoreHistories = [];
       const scoreHistoryRef = $scope.fib.db.ref("ScoreHistory");
       var key = scoreHistoryRef.push().key;

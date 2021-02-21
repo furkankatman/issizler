@@ -34,6 +34,11 @@ var app = {
     );
     document.addEventListener("pause", this.onDevicePaused.bind(this), false);
     document.addEventListener("resume", this.onDeviceResumed.bind(this), false);
+    document.addEventListener(
+      "menubutton",
+      this.onMenuKeyDown.bind(this),
+      false
+    );
   },
 
   // deviceready Event Handler
@@ -52,7 +57,9 @@ var app = {
         $mdDateLocaleProvider,
         $mdThemingProvider
       ) {
-        localStorageServiceProvider.setPrefix("issizler").setNotify(true, true);
+        localStorageServiceProvider
+          .setPrefix("issizlerApp")
+          .setNotify(true, true);
 
         $mdThemingProvider.theme("altTheme").primaryPalette("green");
         $mdThemingProvider.setDefaultTheme("altTheme");
@@ -73,7 +80,23 @@ var app = {
 
         $urlRouterProvider.otherwise("/Home");
         // Now set up the states
-
+        if (localStorage.getItem("issizlerApp.User") != null) {
+          firebase
+            .database()
+            .ref("Users")
+            .orderByChild("Uid")
+            .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
+            .once("value")
+            .then(function (snapshot) {
+              snapshot.forEach((element) => {
+                firebase
+                  .database()
+                  .ref("Users")
+                  .child(element.key)
+                  .update({ Status: 1 });
+              });
+            });
+        }
         $stateProvider
           .state("Home", {
             url: "/Home",
@@ -113,15 +136,72 @@ var app = {
             url: "/Settings",
             templateUrl: "Templates/Settings.html",
             controller: "SettingsController",
+          })
+          .state("StartedGames", {
+            url: "/StartedGames",
+            templateUrl: "Templates/StartedGames.html",
+            controller: "StartedGamesController",
           });
       });
     angular.bootstrap(document.body, ["issizlerApp"]);
   },
   onDevicePaused: function () {
     console.log("paused");
+    if (localStorage.getItem("issizlerApp.User") != null) {
+      firebase
+        .database()
+        .ref("Users")
+        .orderByChild("Uid")
+        .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
+        .once("value")
+        .then(function (snapshot) {
+          snapshot.forEach((element) => {
+            firebase
+              .database()
+              .ref("Users")
+              .child(element.key)
+              .update({ Status: 0 });
+          });
+        });
+    }
   },
   onDeviceResumed: function () {
-    console.log("resumed");
+    if (localStorage.getItem("issizlerApp.User") != null) {
+      firebase
+        .database()
+        .ref("Users")
+        .orderByChild("Uid")
+        .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
+        .once("value")
+        .then(function (snapshot) {
+          snapshot.forEach((element) => {
+            firebase
+              .database()
+              .ref("Users")
+              .child(element.key)
+              .update({ Status: 1 });
+          });
+        });
+    }
+  },
+  onMenuKeyDown: function () {
+    if (localStorage.getItem("issizlerApp.User") != null) {
+      firebase
+        .database()
+        .ref("Users")
+        .orderByChild("Uid")
+        .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
+        .once("value")
+        .then(function (snapshot) {
+          snapshot.forEach((element) => {
+            firebase
+              .database()
+              .ref("Users")
+              .child(element.key)
+              .update({ Status: 0 });
+          });
+        });
+    }
   },
 };
 

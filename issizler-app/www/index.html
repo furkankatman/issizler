@@ -178,9 +178,11 @@
           </div>
           <div>
             <b> Toplam Puan </b>
-            <span ng-show="Score.TotalScore!=0" class="Score"
-              >{{Score.TotalScore}}</span
-            >
+            <span class="Score">{{Score.TotalScore}}</span>
+          </div>
+          <div class="OnlineCount">
+            <b> Online </b>
+            <span>{{los.get("OnlineCount")}}</span>
           </div>
           <div>
             <b> Sıralamanız </b>
@@ -248,5 +250,6 @@
     <script src="js/Controllers/LeaderBoardController.js"></script>
     <script src="js/Controllers/SettingsController.js"></script>
     <script src="js/Controllers/FavoriteWordsController.js"></script>
+    <script src="js/Controllers/StartedGamesController.js"></script>
   </body>
 </html>
