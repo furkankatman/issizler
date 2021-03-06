@@ -33,6 +33,7 @@
     <link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="css/animate.min.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Truculenta:wght@400;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -48,6 +49,7 @@
           </div>
           <b ng-show="los.get('User')!=null" class="indexEmail">{{los.get("User").email}}</b>
           <i class="fa fa-user" ng-show="los.get('User')!=null" ng-click="state.go('Profile')"></i>
+
           <i class="fa fa-bars" ng-click="toggleRight()"></i>
         </div>
       </md-toolbar>
@@ -169,6 +171,7 @@
     <script src="js/Controllers/SettingsController.js"></script>
     <script src="js/Controllers/FavoriteWordsController.js"></script>
     <script src="js/Controllers/StartedGamesController.js"></script>
+    <script src="js/Controllers/InvitesController.js"></script>
   
 
 </body></html>

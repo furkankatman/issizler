@@ -1,46 +1,70 @@
 <md-content class="Register">
-    <md-card ng-show="!User.Register.Enabled" layout-padding>
-        <div layout="column" layout-align="start stretch">
-            <md-input-container>
-                <label>Email</label>
-                <input type="email" ng-model="User.Email" />
-            </md-input-container>
-            <md-input-container>
-                <label>Parola</label>
-                <input type="password" ng-model="User.Password" />
-            </md-input-container>
-            <md-button class="md-raised md-primary" ng-click="Login();">Giriş</md-button>
-            <md-button class="md-raised md-warn" ng-click="Register.ForgotPassword=!Register.ForgotPassword">Parolamı
-                unuttum</md-button>
-            <md-button class="md-raised" md-colors="{'background':'green'}" ng-click="User.Register.Enabled=true;">
-                Kaydol</md-button>
-        </div>
-    </md-card>
-    <md-card ng-show="User.Register.Enabled" layout-padding>
-        <div layout="column" layout-align="start stretch">
-            <md-input-container>
-                <label>Email</label>
-                <input type="email" ng-model="User.Register.Email" />
-            </md-input-container>
-            <md-input-container>
-                <label>Parola</label>
-                <input type="password" ng-model="User.Register.Password" />
-            </md-input-container>
-            <md-input-container>
-                <label>Parola Tekrar</label>
-                <input type="password" ng-model="User.Register.PasswordRepeat" />
-            </md-input-container>
-            <md-button class="md-raised" md-colors="{'background':'green'}" ng-click="Register()">Kaydol</md-button>
-            <md-button class="md-raised md-primary" ng-click="User.Register.Enabled=false;">Giriş</md-button>
-        </div>
-    </md-card>
-    <md-card ng-show="Register.ForgotPassword==true" layout-padding>
-        <div layout="column" layout-align="start stretch">
-            <md-input-container>
-                <label>Email</label>
-                <input type="email" ng-model="User.Register.Email" />
-            </md-input-container>
-            <md-button class="md-raised md-primary" ng-click="ForgotPassword()">Sıfırla</md-button>
-        </div>
-    </md-card>
+  <md-card ng-show="!User.Register.Enabled" layout-padding>
+    <div layout="column" layout-align="start stretch">
+      <md-input-container>
+        <label>Email</label>
+        <input type="email" ng-model="User.Email" />
+      </md-input-container>
+      <md-input-container>
+        <label>Parola</label>
+        <input type="password" ng-model="User.Password" />
+      </md-input-container>
+      <md-button
+        class="md-raised"
+        md-colors="{'background':'grey-200'}"
+        ng-click="Login();"
+        >Giriş</md-button
+      >
+      <md-button
+        class="md-raised md-warn"
+        ng-click="Register.ForgotPassword=!Register.ForgotPassword"
+        >Parolamı unuttum</md-button
+      >
+      <md-button
+        class="md-raised"
+        md-colors="{'background':'green'}"
+        ng-click="User.Register.Enabled=true;"
+      >
+        Kaydol</md-button
+      >
+    </div>
+  </md-card>
+  <md-card ng-show="User.Register.Enabled" layout-padding>
+    <div layout="column" layout-align="start stretch">
+      <md-input-container>
+        <label>Email</label>
+        <input type="email" ng-model="User.Register.Email" />
+      </md-input-container>
+      <md-input-container>
+        <label>Parola</label>
+        <input type="password" ng-model="User.Register.Password" />
+      </md-input-container>
+      <md-input-container>
+        <label>Parola Tekrar</label>
+        <input type="password" ng-model="User.Register.PasswordRepeat" />
+      </md-input-container>
+      <md-button
+        class="md-raised"
+        md-colors="{'background':'green'}"
+        ng-click="Register()"
+        >Kaydol</md-button
+      >
+      <md-button
+        class="md-raised md-primary"
+        ng-click="User.Register.Enabled=false;"
+        >Giriş</md-button
+      >
+    </div>
+  </md-card>
+  <md-card ng-show="Register.ForgotPassword==true" layout-padding>
+    <div layout="column" layout-align="start stretch">
+      <md-input-container>
+        <label>Email</label>
+        <input type="email" ng-model="User.Register.Email" />
+      </md-input-container>
+      <md-button class="md-raised md-primary" ng-click="ForgotPassword()"
+        >Sıfırla</md-button
+      >
+    </div>
+  </md-card>
 </md-content>

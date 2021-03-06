@@ -229,3 +229,9 @@ md-content.md-altTheme-theme {
   text-decoration: underline;
   font-size: 14px;
 }
+
+.ProfileImage-small {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}

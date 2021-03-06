@@ -141,6 +141,11 @@ var app = {
             url: "/StartedGames",
             templateUrl: "Templates/StartedGames.html",
             controller: "StartedGamesController",
+          })
+          .state("Invites", {
+            url: "/Invites",
+            templateUrl: "Templates/Invites.html",
+            controller: "InvitesController",
           });
       });
     angular.bootstrap(document.body, ["issizlerApp"]);

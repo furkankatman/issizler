@@ -148,7 +148,20 @@ angular
           });
         });
       };
-
+      $scope.PleaseLogin = function (ev) {
+        console.log(ev);
+        $mdDialog.show(
+          $mdDialog
+            .alert()
+            .parent(angular.element(document.body))
+            .clickOutsideToClose(true)
+            .title("Lütfen Giriş Yapınız.")
+            .textContent("Üzgünüz ancak hesabınızla giriş yapmanız gerekli.")
+            .ariaLabel("Alert Dialog Demo")
+            .ok("OK")
+            .targetEvent(ev)
+        );
+      };
       $transitions.onSuccess({}, function (transition) {
         console.log(
           "Successful Transition from " +

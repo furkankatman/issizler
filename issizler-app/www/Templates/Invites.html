@@ -1,0 +1,19 @@
+<md-content>
+  <md-card>
+    <h1>Oyuncu Ara</h1>
+    <md-input-container>
+      <label for="">Kullanıcı Adı</label>
+      <input type="text" ng-model="Username" />
+    </md-input-container>
+    <md-button ng-click="Search()"> Bul </md-button>
+    <div ng-repeat="user in UsersFound">
+      <div>
+        <b>{{user.Username}}</b>
+        <img ng-src="{{user.ProfileImage}}" alt="" class="ProfileImage-small" />
+      </div>
+    </div>
+  </md-card>
+  <md-card>
+    <h1>Davetler</h1>
+  </md-card>
+</md-content>
