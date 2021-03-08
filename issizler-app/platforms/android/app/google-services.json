@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "40278653170",
+    "firebase_url": "https://issizlerapp.firebaseio.com",
+    "project_id": "issizlerapp",
+    "storage_bucket": "issizlerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40278653170:android:ec41f0a3a6b28d2876f86b",
+        "android_client_info": {
+          "package_name": "io.amazingjobs.issizler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40278653170-sndasptcj8ctjg13tgg88mkkj8iepnve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCK169iTI4-xZigV0OQDX9OTjqgxU0_Sk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40278653170-sndasptcj8ctjg13tgg88mkkj8iepnve.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

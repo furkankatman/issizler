@@ -4,12 +4,14 @@
     "cordova-android": "^9.0.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
+    "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-whitelist": "1"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-browsersync-gen2": {}
+      "cordova-plugin-browsersync-gen2": {},
+      "cordova-plugin-fcm": {}
     },
     "platforms": [
       "browser",

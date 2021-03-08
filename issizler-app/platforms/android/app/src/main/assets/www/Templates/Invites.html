@@ -5,15 +5,53 @@
       <label for="">Kullanıcı Adı</label>
       <input type="text" ng-model="Username" />
     </md-input-container>
-    <md-button ng-click="Search()"> Bul </md-button>
+    <md-button class="md-raised" ng-click="Search()"> Bul </md-button>
     <div ng-repeat="user in UsersFound">
-      <div>
-        <b>{{user.Username}}</b>
-        <img ng-src="{{user.ProfileImage}}" alt="" class="ProfileImage-small" />
+      <div style="padding: 4px" layout="column">
+        <div layout="row">
+          <img ng-src="{{user.ProfileImage}}" alt="" class="ProfileImage" />
+          <b style="font-size: 22px; padding: 10px">{{user.Username}}</b>
+        </div>
+        <md-button md-colors="{'background':'red'}" ng-click="SendInvite(user)">
+          Davet Gönder
+        </md-button>
       </div>
     </div>
   </md-card>
   <md-card>
-    <h1>Davetler</h1>
+    <h1>Gelen Davetler</h1>
+    <div
+      layout-align="space-between start"
+      class="InviteBox"
+      layout="row"
+      ng-repeat="invite in InvitesToMe"
+    >
+      <div class="InviteBoxContent">
+        <b>{{invite.FromUsername}}</b> |
+        <b>{{invite.Created|date}}</b>
+      </div>
+      <div>
+        <md-button md-colors="{'background':'green'}">Kabul</md-button>
+        <md-button md-colors="{'background':'red'}">Red</md-button>
+      </div>
+    </div>
+  </md-card>
+  <md-card>
+    <h1>Giden Davetler</h1>
+    <div class="InviteBox" ng-repeat="invite in InvitesFromMe">
+      <div
+        layout-align="space-between start"
+        layout="row"
+        class="InviteBoxContent"
+      >
+        <b>{{invite.ToUsername}}</b> | <b>{{invite.Created|date}}</b> |
+        <b
+          style="padding: 2px; border-radius: 4px"
+          md-colors="{'background':'grey-900'}"
+          >{{invite.Status==0?"Beklemede":(invite.Status==2?"Ret
+          Edildi":"")}}</b
+        >
+      </div>
+    </div>
   </md-card>
 </md-content>
