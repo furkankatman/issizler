@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+<!DOCTYPE html><!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,9 +15,7 @@
      KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<html>
-  <head>
+--><html><head>
     <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
@@ -30,135 +27,61 @@
         -->
     <!-- <meta http-equiv="Content-Security-Policy"
         content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta
-      name="viewport"
-      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="css/angular-material.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="css/animate.min.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="css/font-awesome-4.7.0/css/font-awesome.min.css"
-    />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Truculenta:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Truculenta:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
     <title>Merhaba İşsiz</title>
   </head>
 
-  <body class="app" lang="tr" ng-controller="MainController" ng-cloak>
+  <body class="app" lang="tr" ng-controller="MainController" ng-cloak="">
     <div class="sidebar">
-      <md-toolbar
-        ng-hide="state.current.name=='Bill'"
-        class="md-hue-2"
-        flex-order="2"
-        layout="column"
-      >
-        <div
-          layout="row"
-          layout-align="space-between center"
-          class="md-toolbar-tools h40"
-        >
-          <div
-            class="TopHeader"
-            md-colors="{'background':'grey-100'}"
-            ng-click="state.go('Home');"
-          >
+      <md-toolbar ng-hide="state.current.name=='Bill'" class="md-hue-2" flex-order="2" layout="column">
+        <div layout="row" layout-align="space-between center" class="md-toolbar-tools h40">
+          <div class="TopHeader" md-colors="{'background':'grey-100'}" ng-click="state.go('Home');">
             İşsizler
           </div>
-          <b ng-show="los.get('User')!=null" class="indexEmail"
-            >{{los.get("User").email}}</b
-          >
-          <i
-            class="fa fa-user"
-            ng-show="los.get('User')!=null"
-            ng-click="state.go('Profile')"
-          ></i>
+          <b ng-show="los.get('User')!=null" class="indexEmail">{{los.get("User").email}}</b>
+          <i class="fa fa-user" ng-show="los.get('User')!=null" ng-click="state.go('Profile')"></i>
 
           <i class="fa fa-bars" ng-click="toggleRight()"></i>
         </div>
       </md-toolbar>
-      <md-sidenav
-        class="md-sidenav-right md-whiteframe-4dp"
-        md-component-id="right"
-      >
+      <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
         <md-toolbar class="md-theme-light">
           <h1 class="md-toolbar-tools">Menu</h1>
         </md-toolbar>
-        <md-content
-          ng-show="los.get('User')!=null"
-          layout-padding
-          layout="column"
-        >
-          <md-button
-            ng-click="state.go('Profile');close()"
-            class="md-primary"
-            md-colors="{background:'light-blue-500'}"
-          >
+        <md-content ng-show="los.get('User')!=null" layout-padding="" layout="column">
+          <md-button ng-click="state.go('Profile');close()" class="md-primary" md-colors="{background:'light-blue-500'}">
             Profil
           </md-button>
-          <md-button
-            ng-click="state.go('Stock');close()"
-            class="md-primary"
-            md-colors="{background:'purple-600'}"
-          >
+          <md-button ng-click="state.go('Stock');close()" class="md-primary" md-colors="{background:'purple-600'}">
             Nasıl Çalışır
           </md-button>
-          <md-button
-            ng-click="state.go('Cari');close()"
-            class="md-primary"
-            md-colors="{background:'deep-orange-500'}"
-          >
+          <md-button ng-click="state.go('Cari');close()" class="md-primary" md-colors="{background:'deep-orange-500'}">
             Paylaş
           </md-button>
-          <md-button
-            ng-click="Logout();close();"
-            class="md-primary"
-            md-colors="{background:'amber-600'}"
-          >
+          <md-button ng-click="Logout();close();" class="md-primary" md-colors="{background:'amber-600'}">
             Çıkış
           </md-button>
-          <span ng-show="showTM" style="text-align: end"
-            >Powered by <i class="fa fa-bolt"></i>
+          <span ng-show="showTM" style="text-align: end">Powered by <i class="fa fa-bolt"></i>
             <a target="_blank" href="https://empolkametal.com">EmpolkaMetal</a>
-            <i class="fa fa-copyright"></i>{{WsYear}}</span
-          >
+            <i class="fa fa-copyright"></i>{{WsYear}}</span>
         </md-content>
-        <md-content
-          ng-show="los.get('User')==null"
-          layout-padding
-          layout="column"
-        >
-          <md-button
-            ng-click="state.go('Stock');close()"
-            class="md-primary"
-            md-colors="{background:'purple-600'}"
-          >
+        <md-content ng-show="los.get('User')==null" layout-padding="" layout="column">
+          <md-button ng-click="state.go('Stock');close()" class="md-primary" md-colors="{background:'purple-600'}">
             Nasıl Çalışır
           </md-button>
-          <md-button
-            ng-click="state.go('Cari');close()"
-            class="md-primary"
-            md-colors="{background:'deep-orange-500'}"
-          >
+          <md-button ng-click="state.go('Cari');close()" class="md-primary" md-colors="{background:'deep-orange-500'}">
             Paylaş
           </md-button>
-          <md-button
-            ng-click="state.go('Register');close()"
-            class="md-primary"
-            md-colors="{background:'amber-600'}"
-          >
+          <md-button ng-click="state.go('Register');close()" class="md-primary" md-colors="{background:'amber-600'}">
             Giriş
           </md-button>
         </md-content>
@@ -168,13 +91,8 @@
     <div>
       <ui-view> </ui-view>
       <div>
-        <div
-          ng-show="los.get('User')!=null"
-          layout="row"
-          layout-align="space-between end"
-          class="ScoreSummary"
-        >
-          <div ng-show="Game && Game.GamePoint">
+        <div ng-show="los.get('User')!=null" layout="row" layout-align="space-between end" class="ScoreSummary">
+          <div ng-show="Game &amp;&amp; Game.GamePoint">
             <b>Puan</b>
             <span class="Score">{{Game.GamePoint}}</span>
           </div>
@@ -254,5 +172,6 @@
     <script src="js/Controllers/FavoriteWordsController.js"></script>
     <script src="js/Controllers/StartedGamesController.js"></script>
     <script src="js/Controllers/InvitesController.js"></script>
-  </body>
-</html>
+  
+
+</body></html>

@@ -30,9 +30,9 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
       const scoreHistoryRef = $scope.fib.db.ref("ScoreHistory");
       var key = scoreHistoryRef.push().key;
       var question = {
-        Email: $scope.los.get("User").email,
-        Uid: $scope.los.get("User").uid,
-        Question: $scope.Game.QuestionWord,
+        EmailAnsweredBy: $scope.los.get("User").email,
+        UidAnsweredBy: $scope.los.get("User").uid,
+        QuestionAnswered: $scope.Game.QuestionWord,
         Score: $scope.Game.GamePoint,
       };
       question.Created = moment().valueOf();

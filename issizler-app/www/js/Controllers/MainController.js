@@ -116,6 +116,7 @@ angular
       $scope.Score = { TotalScore: 0 };
 
       $scope.SetScoreBoards = function () {
+        console.log("score ...");
         $scope.Score.ScoreBoards = [];
         const scoreBoardRef = $scope.fib.db.ref("ScoreBoard");
         scoreBoardRef.on("value", function (snapshot) {
