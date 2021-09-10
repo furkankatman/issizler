@@ -5,6 +5,7 @@ angular
     function (
       $scope,
       $q,
+      $filter,
       $mdSidenav,
       $mdDialog,
       $state,
@@ -126,17 +127,63 @@ angular
           });
         });
 
-        $scope.Score.ScoreHistories = [];
         const scoreHistoryRef = $scope.fib.db.ref("ScoreHistory");
         scoreHistoryRef.on("value", function (snapshot) {
           $scope.Score.ScoreHistories = [];
+          $scope.Score.PlayersScores = [];
+
           $scope.Score.TotalScore = 0;
           snapshot.forEach(function (val) {
             $scope.Score.ScoreHistories.push(val.val());
-            $scope.Score.TotalScore = $scope.Score.TotalScore + val.val().Score;
+            if (val.val().EmailAnsweredBy == $scope.los.get("User").email) {
+              $scope.Score.TotalScore =
+                $scope.Score.TotalScore + val.val().Score;
+            }
+            var itemIndex = $scope.Score.PlayersScores.findIndex((x) => {
+              return x.EmailAnsweredBy == val.val().EmailAnsweredBy;
+            });
+
+            if (itemIndex != -1) {
+              $scope.Score.PlayersScores[itemIndex].Score += val.val().Score;
+            } else {
+              $scope.Score.PlayersScores.push({
+                Score: val.val().Score,
+                EmailAnsweredBy: val.val().EmailAnsweredBy,
+              });
+            }
           });
+          $scope.Score.PlayersScores = $filter("orderBy")(
+            $scope.Score.PlayersScores,
+            "Score",
+            true
+          );
+          var index = $scope.Score.PlayersScores.findIndex(
+            (x) => x.EmailAnsweredBy == $scope.los.get("User").email
+          );
+          $scope.Score.MyPosition = index + 1;
+          setTimeout(() => {
+            $scope.$apply();
+          }, 100);
         });
       };
+      /*
+      $scope.PlayersScores = [];
+    $scope.Score.ScoreHistories.forEach((element) => {
+      var itemIndex = $scope.PlayersScores.findIndex((x) => {
+        return x.EmailAnsweredBy == element.EmailAnsweredBy;
+      });
+
+      if (itemIndex != -1) {
+        $scope.PlayersScores[itemIndex].Score += element.Score;
+      } else {
+        $scope.PlayersScores.push({
+          Score: element.Score,
+          EmailAnsweredBy: element.EmailAnsweredBy,
+        });
+      }
+    });
+      */
+
       $scope.GetFavorites = function () {
         const favoritesRef = $scope.fib.db
           .ref("Favorites")
