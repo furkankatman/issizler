@@ -1,6 +1,7 @@
 angular.module("issizlerApp").controller("GameController", function ($scope) {
   console.log("WordGameController ");
   $scope.ShowGameSetting = false;
+  $scope.isGuessed = false;
   if (!$scope.Words) {
     $scope.state.go("Home");
     return;
@@ -15,6 +16,7 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
       $scope.Game.QuestionWordArray.push({ Letter: element, Visible: false });
     });
     $scope.Game.GamePoint = $scope.Game.QuestionWordArray.length * 100;
+    $scope.isGuessed = false;
   };
   $scope.OpenLetter = function (i) {
     if ($scope.Game.GamePoint == 0) return;
@@ -22,10 +24,14 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
     $scope.Game.QuestionWordArray[i].Visible = true;
   };
   $scope.Guess = function () {
+    if ($scope.isGuessed) return;
+    $scope.isGuessed = true;
+    //WINNER CASE
     if (
       $scope.GuessedWord.toLowerCase() ==
       $scope.Game.QuestionWord.Value.toLowerCase()
     ) {
+      $scope.OpenQuestionWord(0);
       //   $scope.ScoreHistories = [];
       const scoreHistoryRef = $scope.fib.db.ref("ScoreHistory");
       var key = scoreHistoryRef.push().key;
@@ -37,11 +43,63 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
       };
       question.Created = moment().valueOf();
       scoreHistoryRef.child(key).set(question);
-      alert("Bildiniz...");
-      $scope.SetQuestion();
+
+      //alert("Bildiniz...");
     } else {
-      alert("Bilemediniz...");
+      //LOOSER CASE
+      $scope.LooserSignal();
+      // alert("Bilemediniz...");
     }
+  };
+  $scope.OpenQuestionWord = function (i) {
+    $scope.Game.QuestionWordArray[i].Visible = true;
+    setTimeout(() => {
+      if (i < $scope.Game.QuestionWordArray.length - 1) {
+        $scope.OpenQuestionWord(i + 1);
+        $scope.$apply();
+        if (i == $scope.Game.QuestionWordArray.length - 2) {
+          $scope.WinnerSignal();
+        }
+      }
+    }, 200);
+  };
+  $scope.WinnerSignal = function () {
+    angular
+      .element(document.getElementsByClassName("Signal")[0])
+      .addClass("visible");
+    angular
+      .element(document.getElementsByClassName("Signal")[0])
+      .addClass("animate__flash");
+    setTimeout(() => {
+      angular
+        .element(document.getElementsByClassName("Signal")[0])
+        .removeClass("visible");
+      angular
+        .element(document.getElementsByClassName("Signal")[0])
+        .removeClass("animate__flash");
+
+      $scope.SetQuestion();
+
+      $scope.$apply();
+    }, 2000);
+  };
+  $scope.LooserSignal = function () {
+    angular
+      .element(document.getElementsByClassName("Signal")[0])
+      .addClass("visible BgRed");
+    angular
+      .element(document.getElementsByClassName("Signal")[0])
+      .addClass("animate__flash");
+    setTimeout(() => {
+      angular
+        .element(document.getElementsByClassName("Signal")[0])
+        .removeClass("visible BgRed");
+      angular
+        .element(document.getElementsByClassName("Signal")[0])
+        .removeClass("animate__flash");
+      $scope.isGuessed = false;
+      $scope.$apply();
+    }, 2000);
   };
   $scope.Favorite = function (question) {
     const favoritesRef = $scope.fib.db.ref("Favorites");

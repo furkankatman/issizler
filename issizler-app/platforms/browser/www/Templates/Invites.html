@@ -27,11 +27,15 @@
       ng-repeat="invite in InvitesToMe"
     >
       <div class="InviteBoxContent">
-        <b>{{invite.FromUsername}}</b> |
-        <b>{{invite.Created|date}}</b>
+        <b>{{invite.val.FromUsername}}</b> |
+        <b>{{invite.val.Created|date}}</b>
       </div>
       <div>
-        <md-button md-colors="{'background':'green'}">Kabul</md-button>
+        <md-button
+          md-colors="{'background':'green'}"
+          ng-click="AcceptInvite(invite)"
+          >Kabul</md-button
+        >
         <md-button md-colors="{'background':'red'}">Red</md-button>
       </div>
     </div>
@@ -44,11 +48,11 @@
         layout="row"
         class="InviteBoxContent"
       >
-        <b>{{invite.ToUsername}}</b> | <b>{{invite.Created|date}}</b> |
+        <b>{{invite.val.ToUsername}}</b> | <b>{{invite.val.Created|date}}</b> |
         <b
           style="padding: 2px; border-radius: 4px"
           md-colors="{'background':'grey-900'}"
-          >{{invite.Status==0?"Beklemede":(invite.Status==2?"Ret
+          >{{invite.val.Status==0?"Beklemede":(invite.val.Status==2?"Ret
           Edildi":"")}}</b
         >
       </div>

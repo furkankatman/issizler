@@ -88,7 +88,7 @@ angular
           console.log("innn", user);
           $scope.los.set("User", user);
           const ProfileRef = $scope.fib.db.ref("Users");
-
+          const usernameRandom = "noname" + moment().valueOf();
           ProfileRef.orderByChild("Uid")
             .equalTo(uid)
             .once("value")
@@ -99,9 +99,31 @@ angular
                   Email: user.email,
                   Uid: uid,
                   Created: moment().valueOf(),
+                  Username: usernameRandom,
                 });
               }
             });
+          if (firebase.auth().currentUser.displayName == "null") {
+            firebase
+              .auth()
+              .currentUser.updateProfile({ displayName: usernameRandom })
+              .then(() => {
+                ProfileRef.orderByChild("Uid")
+                  .equalTo(uid)
+                  .once("value")
+                  .then(function (snapshot) {
+                    var key = ProfileRef.push().key;
+                    ProfileRef.child(key).set({
+                      Email: user.email,
+                      Uid: uid,
+                      Created: moment().valueOf(),
+                      Username: usernameRandom,
+                    });
+                  });
+                $scope.los.set("User", firebase.auth().currentUser);
+              });
+          }
+
           if ($scope.fib.auth().currentUser.emailVerified == false) {
             $scope.fib
               .auth()
@@ -138,7 +160,7 @@ angular
                 console.log(error);
               });
           }
-
+          $scope.getToken_x(uid);
           $scope.$apply();
           $state.go("Home");
           // ...
@@ -151,11 +173,97 @@ angular
           $scope.$apply();
           $state.go("Register");
         }
-        //$scope.$apply();
-        //if ($scope.fib.auth().currentUser) {
-        //    $scope.state.go("Home");
-        //}
       });
+
+      $scope.getToken_x = function (uid) {
+        //FCMPlugin.onTokenRefresh(function (token) {
+        //    if (token === "" || token === null)
+        //        return;
+        //    // save this server-side and use it to push notifications to this device
+        //    if (token !== null && token !== $scope.los.get("Driver").Token) {
+        //        $scope.ptoken = token;
+        //        token = {
+        //            "IsActive": true,
+        //            "Token": "",
+        //            "Created": "",
+        //            "Driver": {}
+        //        };
+        //        token.Driver = $scope.los.get("Driver");
+        //        token.Created = moment.utc().format();
+        //        token.Token = $scope.ptoken;
+        //        $http.post(DevServiceUrl[0].url + "/push/AddNewToken", token).then(function (res) {
+
+        //        });
+        //    }
+        //});
+
+        FCMPlugin.getToken(function (token) {
+          if (token === "" || token === null) {
+            alert("no token");
+            return;
+          }
+          $scope.ptoken = token;
+          token = {
+            Token: "",
+            Created: "",
+            Uid: "",
+          };
+          token.Created = moment.utc().format();
+          token.Token = $scope.ptoken;
+          token.Uid = uid;
+
+          $scope.fib.db
+            .ref("PushTokens")
+            .child(uid)
+            .set(token)
+            .catch(function (err) {});
+        });
+        //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
+        //Here you define your application behaviour based on the notification data.
+        FCMPlugin.onNotification(function (data) {
+          if ($scope.Notifications === null) $scope.Notifications = new Array();
+          if (data.wasTapped) {
+            //Notification was received on device tray and tapped by the user.
+            //$scope.Notifications.push(data);
+            if (data.type == "NF") {
+              $scope.Notifications.NF = true;
+            } else {
+              if ((data.type = "NMYC")) {
+                $firebaseStorage(
+                  firebase
+                    .storage()
+                    .ref("DriverImages/" + data.SenderUid + ".jpg")
+                )
+                  .$getDownloadURL()
+                  .then(function (url) {
+                    data.pic = url;
+                  });
+              }
+              $scope.Notifications.push(data);
+            }
+            $scope.$apply();
+          } else {
+            //Notification was received in foreground. Maybe the user needs to be notified.
+            if (data.type == "NMYC") {
+              $firebaseStorage(
+                firebase
+                  .storage()
+                  .ref("DriverImages/" + data.SenderUid + ".jpg")
+              )
+                .$getDownloadURL()
+                .then(function (url) {
+                  data.pic = url;
+                });
+            }
+            $scope.Notifications.push(data);
+            if (data.type == "NF") {
+              $scope.Notifications.NF = true;
+            }
+            $scope.$apply();
+          }
+        });
+      };
+
       $scope.showAlert = function (ev, message) {
         // Appending dialog to document.body to cover sidenav in docs app
         // Modal dialogs should fully cover application

@@ -4,6 +4,7 @@ angular
     console.log("Invites");
     $scope.Username = "";
     const invitesRef = $scope.fib.db.ref("Invites");
+    const gamesRef = $scope.fib.db.ref("Games");
     const usersRef = $scope.fib.db.ref("Users");
     $scope.UsersFound = [];
     $scope.InvitesFromMe = [];
@@ -15,7 +16,8 @@ angular
       .on("value", function (snapshot) {
         $scope.InvitesToMe = [];
         snapshot.forEach((element) => {
-          $scope.InvitesToMe.push(element.val());
+          let invite = { val: element.val(), key: element.key };
+          $scope.InvitesToMe.push(invite);
         });
         setTimeout(() => {
           $scope.$apply();
@@ -28,7 +30,8 @@ angular
       .on("value", function (snapshot) {
         $scope.InvitesFromMe = [];
         snapshot.forEach((element) => {
-          $scope.InvitesFromMe.push(element.val());
+          let invite = { val: element.val(), key: element.key };
+          $scope.InvitesFromMe.push(invite);
         });
         setTimeout(() => {
           $scope.$apply();
@@ -70,5 +73,37 @@ angular
         .then(function () {
           console.log("Davet Gönderildi.");
         });
+    };
+
+    $scope.AcceptInvite = function (i) {
+      console.log(i, "ssss");
+      // console.log(user);
+      // var invite = {
+      //   FromUsername: $scope.los.get("User").displayName,
+      //   ToUsername: user.Username,
+      //   FromEmail: $scope.los.get("User").email,
+      //   ToEmail: user.Email,
+      //   FromUid: $scope.los.get("User").uid,
+      //   ToUid: user.Uid,
+      //   Created: moment().valueOf(),
+      //   Status: 0,
+      // };
+      $scope.fib.db
+        .ref("Invites/" + i.key)
+        .update({ Status: 1, AcceptedWhen: moment().valueOf() });
+
+      var gameKey = gamesRef.push().key;
+      var Game = {};
+      Game.Player1 = i.val.FromUid;
+      Game.Player2 = i.val.ToUid;
+      Game.Turn = 1;
+      Game.Questions =
+        "-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa";
+      Game.Opens1 = "";
+      Game.Opens2 = "";
+      Game.Opens3 = "";
+      Game.Opens4 = "";
+      Game.Opens5 = "";
+      gamesRef.child(gameKey).set(angular.copy(Game));
     };
   });

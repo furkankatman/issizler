@@ -262,3 +262,21 @@ md-content {
   text-align: center;
   font-size: 13px;
 }
+
+.Signal {
+  width: 50px;
+  height: 50px;
+  display: none;
+  border-radius: 50%;
+  background: green;
+}
+.BgRed {
+  background-color: red;
+}
+
+.visible {
+  display: block;
+}
+.hidden {
+  display: none;
+}
