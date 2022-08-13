@@ -108,7 +108,9 @@ angular
       wordsRef.on("value", function (snapshot) {
         $scope.Words = [];
         snapshot.forEach((element) => {
-          $scope.Words.push(element.val());
+          var word = element.val();
+          word.key = element.key;
+          $scope.Words.push(word);
         });
         setTimeout(() => {
           $scope.$apply();

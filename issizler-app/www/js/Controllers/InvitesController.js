@@ -92,10 +92,13 @@ angular
         .ref("Invites/" + i.key)
         .update({ Status: 1, AcceptedWhen: moment().valueOf() });
 
+      // Acceptor = player1 :)
       var gameKey = gamesRef.push().key;
       var Game = {};
       Game.Player1 = i.val.FromUid;
       Game.Player2 = i.val.ToUid;
+      Game.Player1Username = i.val.FromUsername;
+      Game.Player2Username = i.val.ToUsername;
       Game.Turn = 1;
       Game.Questions =
         "-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa";
@@ -104,6 +107,12 @@ angular
       Game.Opens3 = "";
       Game.Opens4 = "";
       Game.Opens5 = "";
+      Game.Winner1 = "";
+      Game.Winner2 = "";
+      Game.Winner3 = "";
+      Game.Winner4 = "";
+      Game.Winner5 = "";
+      Game.ActiveQuestion = 0;
       gamesRef.child(gameKey).set(angular.copy(Game));
     };
   });

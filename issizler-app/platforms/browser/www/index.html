@@ -47,7 +47,10 @@
           <div class="TopHeader" md-colors="{'background':'grey-100'}" ng-click="state.go('Home');">
             İşsizler
           </div>
-          <b ng-show="los.get('User')!=null" class="indexEmail">{{los.get("User").email}}</b>
+          <b ng-show="los.get('User')!=null" class="indexEmail">
+            <!-- style="text-align: center ;" -->
+            ------
+          </b>
           <i class="fa fa-user" ng-show="los.get('User')!=null" ng-click="state.go('Profile')"></i>
 
           <i class="fa fa-bars" ng-click="toggleRight()"></i>
