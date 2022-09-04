@@ -24,6 +24,7 @@
               >{{Today|date:'dd.MM.yyyy'}}</b
             >
           </div>
+          <span>Kelime Puanı:{{WordPoint.val}}</span>
           <span class="Badword" md-colors="{background:'red-A200'}"
             >Soru Uygunsuz!
           </span>
@@ -50,7 +51,11 @@
             <div>
               <md-input-container>
                 <label for="">Tahmin Et</label>
-                <input type="text" autocomplete="off" ng-model="GuessedWord2" />
+                <input
+                  type="text"
+                  autocomplete="off"
+                  ng-model="GuessedWord2.val"
+                />
               </md-input-container>
             </div>
             <div layout="row" layout-align="space-between center">
