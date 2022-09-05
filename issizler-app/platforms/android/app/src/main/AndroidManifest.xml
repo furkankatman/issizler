@@ -25,5 +25,21 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <receiver android:name="com.huawei.hms.cordova.push.receiver.HmsLocalNotificationActionsReceiver" />
+        <receiver android:name="com.huawei.hms.cordova.push.receiver.HmsLocalNotificationBootEventReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:enabled="true" android:exported="true" android:name="com.huawei.hms.cordova.push.receiver.HmsLocalNotificationScheduledPublisher" />
+        <service android:exported="true" android:name="com.huawei.hms.cordova.push.remote.HmsPushMessageService">
+            <intent-filter>
+                <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 </manifest>

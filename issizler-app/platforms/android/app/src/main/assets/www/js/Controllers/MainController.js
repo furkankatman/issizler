@@ -216,7 +216,7 @@ angular
       if ($scope.los.get("User") != null) {
         setTimeout(() => {
           $scope.getToken_x($scope.los.get("User").uid);
-        }, 1000);
+        }, 2000);
       }
       $transitions.onSuccess({}, function (transition) {
         console.log(

@@ -1,7 +1,7 @@
 try {
   angular
     .module("issizlerApp")
-    .controller("StartedGamesController", function ($scope) {
+    .controller("StartedGamesController", function ($scope, $mdDialog) {
       const gamesRef = $scope.fib.db.ref("Games");
       $scope.Games = [];
       $scope.ActiveGame = null;
@@ -158,10 +158,34 @@ try {
       };
       $scope.OpenLetter = function (i) {
         if ($scope.ActiveGame.Turn == 1 && $scope.isPlayer1 != true) {
-          alert("senin sıran değil");
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent("senin sıran değil")
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
+          );
           return;
         } else if ($scope.ActiveGame.Turn == 2 && $scope.isPlayer1 == true) {
-          alert("senin sıran değil");
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent("senin sıran değil")
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
+          );
           return;
         }
         $scope.WordPoint.val = $scope.WordPoint.val - 100;
@@ -260,10 +284,34 @@ try {
       };
       $scope.Guess = function (w) {
         if ($scope.ActiveGame.Turn == 1 && $scope.isPlayer1 != true) {
-          alert("senin sıran değil");
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent("senin sıran değil")
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
+          );
           return;
         } else if ($scope.ActiveGame.Turn == 2 && $scope.isPlayer1 == true) {
-          alert("senin sıran değil");
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent("senin sıran değil")
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
+          );
           return;
         }
         if ($scope.isGuessed) return;
@@ -438,41 +486,89 @@ try {
           p2Wins += 1;
         }
         if ($scope.isPlayer1 && p1Wins > p2Wins) {
-          alert(
-            g.Player2Username +
-              " ile olan oyununuzu kazandınız. " +
-              "Siz:" +
-              p1Wins +
-              "- Rakibiniz:" +
-              p2Wins
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent(
+                g.Player2Username +
+                  " ile olan oyununuzu kazandınız. " +
+                  "Siz:" +
+                  p1Wins +
+                  "- Rakibiniz:" +
+                  p2Wins
+              )
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
           );
         } else if ($scope.isPlayer1 && p1Wins < p2Wins) {
-          alert(
-            g.Player2Username +
-              " ile olan oyununuzu kaybetttiniz. " +
-              "Siz:" +
-              p1Wins +
-              "- Rakibiniz:" +
-              p2Wins
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent(
+                g.Player2Username +
+                  " ile olan oyununuzu kaybetttiniz. " +
+                  "Siz:" +
+                  p1Wins +
+                  "- Rakibiniz:" +
+                  p2Wins
+              )
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
           );
         }
         if (!$scope.isPlayer1 && p1Wins < p2Wins) {
-          alert(
-            g.Player1Username +
-              " ile olan oyununuzu kazandınız. " +
-              "Siz:" +
-              p2Wins +
-              "- Rakibiniz:" +
-              p1Wins
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent(
+                g.Player1Username +
+                  " ile olan oyununuzu kazandınız. " +
+                  "Siz:" +
+                  p2Wins +
+                  "- Rakibiniz:" +
+                  p1Wins
+              )
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
           );
         } else if (!$scope.isPlayer1 && p1Wins > p2Wins) {
-          alert(
-            g.Player1Username +
-              " ile olan oyununuzu kaybetttiniz. " +
-              "Siz:" +
-              p2Wins +
-              "- Rakibiniz:" +
-              p1Wins
+          $mdDialog.show(
+            $mdDialog
+              .alert()
+              .parent(angular.element(document.body))
+              .clickOutsideToClose(true)
+              .title("Uyarı!")
+              .textContent(
+                g.Player1Username +
+                  " ile olan oyununuzu kaybetttiniz. " +
+                  "Siz:" +
+                  p2Wins +
+                  "- Rakibiniz:" +
+                  p1Wins
+              )
+              .ariaLabel("Alert Dialog Demo")
+              .ok("OK")
+              .targetEvent((e) => {
+                console.log(e);
+              })
           );
         }
       };

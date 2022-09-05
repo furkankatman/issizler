@@ -1,0 +1,82 @@
+{
+  "_from": "@hmscore/cordova-plugin-hms-push",
+  "_id": "@hmscore/cordova-plugin-hms-push@6.3.0-304",
+  "_inBundle": false,
+  "_integrity": "sha512-58jmz0mmLqofbWLBBecxLEAQwYL7YunGFCM3IMuplFhhjphGG3yDjL8UMe0+Tqd6SOLhhv7P/TGkQpFpP4iSuQ==",
+  "_location": "/@hmscore/cordova-plugin-hms-push",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@hmscore/cordova-plugin-hms-push",
+    "name": "@hmscore/cordova-plugin-hms-push",
+    "escapedName": "@hmscore%2fcordova-plugin-hms-push",
+    "scope": "@hmscore",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/@hmscore/cordova-plugin-hms-push/-/cordova-plugin-hms-push-6.3.0-304.tgz",
+  "_shasum": "052125f3a60f639448b8f0146501c2f22d18ec0d",
+  "_spec": "@hmscore/cordova-plugin-hms-push",
+  "_where": "C:\\Users\\katma\\Desktop\\DevFolder\\issizler\\issizler-app",
+  "bugs": {
+    "url": "https://github.com/HMS-Core/hms-cordova-plugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-hms-push",
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Cordova HMS Push Plugin",
+  "devDependencies": {
+    "@types/cordova": "0.0.34",
+    "typescript": "3.9.5"
+  },
+  "files": [
+    "hooks",
+    "ionic-native",
+    "src",
+    "types",
+    "www",
+    "LICENSE",
+    "package.json",
+    "plugin.xml",
+    "README.md",
+    "THIRD PARTY OPEN SOURCE SOFTWARE NOTICE.txt"
+  ],
+  "homepage": "https://developer.huawei.com/consumer/en/doc/overview/HMS-Core-Plugin",
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "push",
+    "hms-push",
+    "huawei-push",
+    "hms",
+    "huawei"
+  ],
+  "license": "Apache-2.0",
+  "licenseFilename": "LICENSE",
+  "main": "./www/HmsPush.js",
+  "name": "@hmscore/cordova-plugin-hms-push",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HMS-Core/hms-cordova-plugin.git",
+    "directory": "cordova-plugin-hms-push"
+  },
+  "scripts": {
+    "build": "node ./node_modules/typescript/bin/tsc",
+    "watch": "node ./node_modules/typescript/bin/tsc --watch"
+  },
+  "types": "./types/index.d.ts",
+  "version": "6.3.0-304"
+}

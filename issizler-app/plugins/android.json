@@ -15,6 +15,9 @@
     },
     "cordova-plugin-fcm": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
+    },
+    "cordova-plugin-hms-push": {
+      "PACKAGE_NAME": "io.amazingjobs.issizler"
     }
   },
   "dependent_plugins": {}
