@@ -13,8 +13,7 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-browsersync-gen2": {},
-      "cordova-plugin-fcm": {},
-      "cordova-plugin-hms-push": {}
+      "cordova-plugin-fcm": {}
     },
     "platforms": [
       "browser",

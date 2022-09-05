@@ -15,9 +15,6 @@
     },
     "cordova-plugin-fcm": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
-    },
-    "cordova-plugin-hms-push": {
-      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {}
