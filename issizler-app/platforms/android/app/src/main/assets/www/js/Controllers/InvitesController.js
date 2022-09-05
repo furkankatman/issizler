@@ -106,15 +106,25 @@ try {
         Game.Player2Username = i.val.ToUsername;
         Game.Turn = 1;
         Game.Questions =
-          $scope.Words[Math.floor(Math.random() * 8) + 1].key +
+          $scope.Words[
+            Math.floor(Math.random() * ($scope.Words.length - 1)) + 1
+          ].key +
           "," +
-          $scope.Words[Math.floor(Math.random() * 8) + 1].key +
+          $scope.Words[
+            Math.floor(Math.random() * ($scope.Words.length - 1)) + 1
+          ].key +
           "," +
-          $scope.Words[Math.floor(Math.random() * 8) + 1].key +
+          $scope.Words[
+            Math.floor(Math.random() * ($scope.Words.length - 1)) + 1
+          ].key +
           "," +
-          $scope.Words[Math.floor(Math.random() * 8) + 1].key +
+          $scope.Words[
+            Math.floor(Math.random() * ($scope.Words.length - 1)) + 1
+          ].key +
           "," +
-          $scope.Words[Math.floor(Math.random() * 8) + 1].key;
+          $scope.Words[
+            Math.floor(Math.random() * ($scope.Words.length - 1)) + 1
+          ].key;
         // ("-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa");
         Game.Opens1 = "";
         Game.Opens2 = "";
