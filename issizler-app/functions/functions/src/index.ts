@@ -13,12 +13,12 @@ exports.makeUppercase = functions.database.ref('/Invites/{id}')
       // Grab the current value of what was written to the Realtime Database.
       const original = snapshot.val();
       
-      functions.logger.log('Uppercasing', context.params.id, original);
+      functions.logger.log('Uppercasing', context.params.id,"---", original);
       const sendNtf = snapshot.ref.root.child("PushTokens").child(original.ToUid).once("value");
       const payload = {
         notification: {
             "title": "Oyun Davetiniz Var.",
-            "body": original.FromUserName+" size bir oyun davet gönderdi." ,
+            "body":  snapshot.val().FromUsername+" size bir oyun davet gönderdi." ,
             "icon": "",
             "sound": "default",
             "click_action": "FCM_PLUGIN_ACTIVITY"
