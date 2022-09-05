@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-plugin-fcm",
+  "_from": "cordova-plugin-fcm@^2.1.2",
   "_id": "cordova-plugin-fcm@2.1.2",
   "_inBundle": false,
-  "_integrity": "sha1-Xy98EsFlVtIdMCHn062J4hWCV0c=",
+  "_integrity": "sha512-beiMIBxGA88l79g9nOG+0OoCiRTxow34jxfYpUAKfW+t4kHm1UJ/3xnfk+CKmJt9pWz+G+u0Ii8uwLMr6tQTsA==",
   "_location": "/cordova-plugin-fcm",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-fcm",
+    "raw": "cordova-plugin-fcm@^2.1.2",
     "name": "cordova-plugin-fcm",
     "escapedName": "cordova-plugin-fcm",
-    "rawSpec": "",
+    "rawSpec": "^2.1.2",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^2.1.2"
   },
   "_requiredBy": [
     "#DEV:/",
@@ -21,7 +21,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-fcm/-/cordova-plugin-fcm-2.1.2.tgz",
   "_shasum": "5f2f7c12c16556d21d3021e7d3ad89e215825747",
-  "_spec": "cordova-plugin-fcm",
+  "_spec": "cordova-plugin-fcm@^2.1.2",
   "_where": "C:\\Users\\katma\\Desktop\\DevFolder\\issizler\\issizler-app",
   "author": {
     "name": "Felipe Echanique Torres",

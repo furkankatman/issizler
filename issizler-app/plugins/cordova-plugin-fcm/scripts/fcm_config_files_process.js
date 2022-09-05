@@ -65,7 +65,6 @@ if (directoryExists("platforms/android")) {
       var strings = fs
         .readFileSync("platforms/android/app/src/main/res/values/strings.xml")
         .toString();
-      // var strings = fs.readFileSync("platforms/android/res/values/strings.xml").toString();
 
       // strip non-default value
       strings = strings.replace(
@@ -101,7 +100,6 @@ if (directoryExists("platforms/android")) {
           "</string>"
       );
 
-      // fs.writeFileSync("platforms/android/res/values/strings.xml", strings);
       fs.writeFileSync(
         "platforms/android/app/src/main/res/values/strings.xml",
         strings

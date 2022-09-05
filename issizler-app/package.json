@@ -4,7 +4,6 @@
     "@hmscore/cordova-plugin-hms-push": "^6.3.0-304",
     "cordova-android": "^9.0.0",
     "cordova-browser": "^6.0.0",
-    "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-browsersync-gen2": "^1.1.7",
     "cordova-plugin-fcm": "^2.1.2",
     "cordova-plugin-whitelist": "1"

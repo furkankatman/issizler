@@ -7,10 +7,10 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
+    "cordova-plugin-browsersync-gen2": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
     },
-    "cordova-plugin-browsersync-gen2": {
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
     },
     "cordova-plugin-fcm": {
