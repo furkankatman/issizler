@@ -82,17 +82,7 @@ try {
 
       $scope.AcceptInvite = function (i) {
         console.log(i, "ssss");
-        // console.log(user);
-        // var invite = {
-        //   FromUsername: $scope.los.get("User").displayName,
-        //   ToUsername: user.Username,
-        //   FromEmail: $scope.los.get("User").email,
-        //   ToEmail: user.Email,
-        //   FromUid: $scope.los.get("User").uid,
-        //   ToUid: user.Uid,
-        //   Created: moment().valueOf(),
-        //   Status: 0,
-        // };
+
         $scope.fib.db
           .ref("Invites/" + i.key)
           .update({ Status: 1, AcceptedWhen: moment().valueOf() });
@@ -125,7 +115,6 @@ try {
           $scope.Words[
             Math.floor(Math.random() * ($scope.Words.length - 1)) + 1
           ].key;
-        // ("-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa,-MldXc1dYiexketPElNa");
         Game.Opens1 = "";
         Game.Opens2 = "";
         Game.Opens3 = "";
@@ -138,6 +127,10 @@ try {
         Game.Winner5 = "";
         Game.ActiveQuestion = 0;
         gamesRef.child(gameKey).set(angular.copy(Game));
+        // $scope.setActiveGame(angular.copy(Game));
+        var gameToOpen = angular.copy(Game);
+        gameToOpen.key = gameKey;
+        $scope.state.go("StartedGames", { game: gameToOpen });
       };
       $scope.RejectInvite = function (i) {
         $scope.fib.db

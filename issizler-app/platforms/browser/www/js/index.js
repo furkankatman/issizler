@@ -139,6 +139,7 @@ var app = {
           })
           .state("StartedGames", {
             url: "/StartedGames",
+            params: { game: "" },
             templateUrl: "Templates/StartedGames.html",
             controller: "StartedGamesController",
           })

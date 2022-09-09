@@ -40,6 +40,12 @@ try {
             $scope.$apply();
           }, 100);
         });
+      $scope.ShowGameSetting = false;
+      $scope.isGuessed = false;
+      if (!$scope.Words) {
+        $scope.state.go("Home");
+        return;
+      }
 
       $scope.setActiveGame = function (game) {
         $scope.ActiveGameKey = game.key;
@@ -50,97 +56,242 @@ try {
           var nextState = snapshot.val();
           if (nextState.Winner5 != "") {
             var winner = $scope.CheckWinner(nextState);
-
+            //winner
             return;
           }
+          var currentState = angular.copy($scope.ActiveGame);
           $scope.ActiveGame = nextState;
-          $scope.ActiveQuestion = $scope.Words.find(
-            (x) =>
-              x.key ==
-              $scope.ActiveGame.Questions.split(",")[
-                $scope.ActiveGame.ActiveQuestion
-              ]
-          );
-          $scope.QuestionWordArray = [];
-          $scope.ActiveQuestion.Value.split("").forEach((element) => {
-            $scope.QuestionWordArray.push({
-              Letter: element,
-              Visible: false,
-            });
-          });
-          if ($scope.ActiveGame.ActiveQuestion == 0) {
-            var opennedLetters = $scope.ActiveGame.Opens1.split(",");
-            $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
-            opennedLetters.forEach((x) => {
-              if (x.indexOf("$") != -1) {
-                $scope.WordPoint.val = $scope.WordPoint.val - 100;
-
-                $scope.QuestionWordArray[x[2]].Visible = true;
-              }
-            });
-            /////
+          console.log(nextState, "nextState");
+          if (currentState && currentState.Turn != nextState.Turn) {
+            navigator.vibrate(10);
           }
-          if ($scope.ActiveGame.ActiveQuestion == 1) {
-            $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
-            var opennedLetters = $scope.ActiveGame.Opens2.split(",");
-            opennedLetters.forEach((x) => {
-              if (x.indexOf("$") != -1) {
-                $scope.WordPoint.val = $scope.WordPoint.val - 100;
-                $scope.QuestionWordArray[x[2]].Visible = true;
-              }
-            });
-            /////
-          }
-          if ($scope.ActiveGame.ActiveQuestion == 2) {
-            $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
-            var opennedLetters = $scope.ActiveGame.Opens3.split(",");
-            opennedLetters.forEach((x) => {
-              if (x.indexOf("$") != -1) {
-                $scope.WordPoint.val = $scope.WordPoint.val - 100;
-
-                $scope.QuestionWordArray[x[2]].Visible = true;
-              }
-            });
-            /////
-          }
-          if ($scope.ActiveGame.ActiveQuestion == 3) {
-            $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
-            var opennedLetters = $scope.ActiveGame.Opens4.split(",");
-            opennedLetters.forEach((x) => {
-              if (x.indexOf("$") != -1) {
-                $scope.WordPoint.val = $scope.WordPoint.val - 100;
-
-                $scope.QuestionWordArray[x[2]].Visible = true;
-              }
-            });
-            /////
-          }
-          if ($scope.ActiveGame.ActiveQuestion == 4) {
-            $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
-            var opennedLetters = $scope.ActiveGame.Opens5.split(",");
-            opennedLetters.forEach((x) => {
-              if (x.indexOf("$") != -1) {
-                $scope.WordPoint.val = $scope.WordPoint.val - 100;
-
-                $scope.QuestionWordArray[x[2]].Visible = true;
-              }
-            });
-            /////
+          if (
+            currentState &&
+            ((currentState.Winner1 == "" &&
+              nextState.Winner1 == "1" &&
+              !$scope.isPlayer1) ||
+              (currentState.Winner2 == "" &&
+                nextState.Winner2 == "1" &&
+                !$scope.isPlayer1) ||
+              (currentState.Winner3 == "" &&
+                nextState.Winner3 == "1" &&
+                !$scope.isPlayer1) ||
+              (currentState.Winner4 == "" &&
+                nextState.Winner4 == "1" &&
+                !$scope.isPlayer1) ||
+              (currentState.Winner5 == "" &&
+                nextState.Winner5 == "1" &&
+                !$scope.isPlayer1) ||
+              (currentState.Winner1 == "" &&
+                nextState.Winner1 == "2" &&
+                $scope.isPlayer1) ||
+              (currentState.Winner2 == "" &&
+                nextState.Winner2 == "2" &&
+                $scope.isPlayer1) ||
+              (currentState.Winner3 == "" &&
+                nextState.Winner3 == "2" &&
+                $scope.isPlayer1) ||
+              (currentState.Winner4 == "" &&
+                nextState.Winner4 == "2" &&
+                $scope.isPlayer1) ||
+              (currentState.Winner5 == "" &&
+                nextState.Winner5 == "2" &&
+                $scope.isPlayer1))
+          ) {
+            if ($scope.QuestionWordArray) {
+              navigator.vibrate(60);
+              var roundLost = $scope.CheckRoundLost(nextState);
+              if (roundLost) return;
+            }
           }
 
-          $scope.isGuessed = false;
-          setTimeout(() => {
-            $scope.$apply();
-          }, 100);
+          $scope.SetActiveQuestion();
         });
       };
+      $scope.CheckRoundLost = function (nextState) {
+        if (
+          $scope.isPlayer1 &&
+          nextState.Winner1 != "" &&
+          nextState.Winner2 == "" &&
+          nextState.Winner1 == "2"
+          // $scope.ActiveGame.Turn == 1 && $scope.isPlayer1 != true
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
 
-      $scope.ShowGameSetting = false;
-      $scope.isGuessed = false;
-      if (!$scope.Words) {
-        $scope.state.go("Home");
-        return;
-      }
+        if (
+          !$scope.isPlayer1 &&
+          nextState.Winner1 != "" &&
+          nextState.Winner2 == "" &&
+          nextState.Winner1 == "1"
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
+        if (
+          $scope.isPlayer1 &&
+          nextState.Winner2 != "" &&
+          nextState.Winner3 == "" &&
+          nextState.Winner2 == "2"
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
+
+        if (
+          !$scope.isPlayer1 &&
+          nextState.Winner2 != "" &&
+          nextState.Winner3 == "" &&
+          nextState.Winner2 == "1"
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
+        if (
+          $scope.isPlayer1 &&
+          nextState.Winner3 != "" &&
+          nextState.Winner4 == "" &&
+          nextState.Winner3 == "2"
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
+
+        if (
+          !$scope.isPlayer1 &&
+          nextState.Winner3 != "" &&
+          nextState.Winner4 == "" &&
+          nextState.Winner3 == "1"
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
+        if (
+          $scope.isPlayer1 &&
+          nextState.Winner4 != "" &&
+          nextState.Winner5 == "" &&
+          nextState.Winner4 == "2"
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
+
+        if (
+          !$scope.isPlayer1 &&
+          nextState.Winner4 != "" &&
+          nextState.Winner5 == "" &&
+          nextState.Winner4 == "1"
+        ) {
+          $scope.OpenOnlyQuestionWord(0).then((x) => {
+            console.log("wwww", x);
+            $scope.SetActiveQuestion();
+          });
+          return true;
+        }
+        return false;
+      };
+      $scope.SetActiveQuestion = function () {
+        $scope.ActiveQuestion = $scope.Words.find(
+          (x) =>
+            x.key ==
+            $scope.ActiveGame.Questions.split(",")[
+              $scope.ActiveGame.ActiveQuestion
+            ]
+        );
+        $scope.QuestionWordArray = [];
+        $scope.ActiveQuestion.Value.split("").forEach((element) => {
+          $scope.QuestionWordArray.push({
+            Letter: element,
+            Visible: false,
+          });
+        });
+        if ($scope.ActiveGame.ActiveQuestion == 0) {
+          var opennedLetters = $scope.ActiveGame.Opens1.split(",");
+          $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
+          opennedLetters.forEach((x) => {
+            if (x.indexOf("$") != -1) {
+              $scope.WordPoint.val = $scope.WordPoint.val - 100;
+
+              $scope.QuestionWordArray[x[2]].Visible = true;
+            }
+          });
+          /////
+        }
+        if ($scope.ActiveGame.ActiveQuestion == 1) {
+          $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
+          var opennedLetters = $scope.ActiveGame.Opens2.split(",");
+          opennedLetters.forEach((x) => {
+            if (x.indexOf("$") != -1) {
+              $scope.WordPoint.val = $scope.WordPoint.val - 100;
+              $scope.QuestionWordArray[x[2]].Visible = true;
+            }
+          });
+          /////
+        }
+        if ($scope.ActiveGame.ActiveQuestion == 2) {
+          $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
+          var opennedLetters = $scope.ActiveGame.Opens3.split(",");
+          opennedLetters.forEach((x) => {
+            if (x.indexOf("$") != -1) {
+              $scope.WordPoint.val = $scope.WordPoint.val - 100;
+
+              $scope.QuestionWordArray[x[2]].Visible = true;
+            }
+          });
+          /////
+        }
+        if ($scope.ActiveGame.ActiveQuestion == 3) {
+          $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
+          var opennedLetters = $scope.ActiveGame.Opens4.split(",");
+          opennedLetters.forEach((x) => {
+            if (x.indexOf("$") != -1) {
+              $scope.WordPoint.val = $scope.WordPoint.val - 100;
+
+              $scope.QuestionWordArray[x[2]].Visible = true;
+            }
+          });
+          /////
+        }
+        if ($scope.ActiveGame.ActiveQuestion == 4) {
+          $scope.WordPoint.val = $scope.QuestionWordArray.length * 100;
+          var opennedLetters = $scope.ActiveGame.Opens5.split(",");
+          opennedLetters.forEach((x) => {
+            if (x.indexOf("$") != -1) {
+              $scope.WordPoint.val = $scope.WordPoint.val - 100;
+
+              $scope.QuestionWordArray[x[2]].Visible = true;
+            }
+          });
+          /////
+        }
+
+        $scope.isGuessed = false;
+        setTimeout(() => {
+          $scope.$apply();
+        }, 100);
+      };
       $scope.SetQuestion = function () {
         $scope.Game.QuestionWord =
           $scope.Words[Math.floor(Math.random() * $scope.Words.length)];
@@ -350,6 +501,19 @@ try {
             }
           }
         }, 200);
+      };
+      $scope.OpenOnlyQuestionWord = function (i) {
+        return new Promise((resolve, reject) => {
+          $scope.QuestionWordArray[i].Visible = true;
+          setTimeout(() => {
+            if (i < $scope.QuestionWordArray.length - 1) {
+              resolve($scope.OpenOnlyQuestionWord(i + 1));
+              $scope.$apply();
+            } else {
+              resolve(true);
+            }
+          }, 200);
+        });
       };
       $scope.WinnerSignal = function () {
         angular
@@ -572,6 +736,9 @@ try {
           );
         }
       };
+      if ($scope.state.params.game != "") {
+        $scope.setActiveGame($scope.state.params.game);
+      }
       $scope.Today = moment().valueOf();
     });
 } catch (error) {
