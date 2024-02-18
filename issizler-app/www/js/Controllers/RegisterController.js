@@ -69,7 +69,7 @@ angular
             $scope.showAlert(
               null,
               "Parola sıfırlama emailini gönderirken bir hata ile karşılaşıldı." +
-                error
+              error
             );
             $scope.User.Register.Email = "";
             $scope.$apply();
@@ -160,6 +160,23 @@ angular
                 console.log(error);
               });
           }
+          if (localStorage.getItem("issizlerApp.User") != null) {
+            firebase
+              .database()
+              .ref("Users")
+              .orderByChild("Uid")
+              .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
+              .once("value")
+              .then(function (snapshot) {
+                snapshot.forEach((element) => {
+                  firebase
+                    .database()
+                    .ref("Users")
+                    .child(element.key)
+                    .update({ Status: 1 });
+                });
+              });
+          }
           $scope.getToken_x(uid);
           $scope.$apply();
           $state.go("Home");
@@ -216,7 +233,7 @@ angular
             .ref("PushTokens")
             .child(uid)
             .set(token)
-            .catch(function (err) {});
+            .catch(function (err) { });
         });
         //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
         //Here you define your application behaviour based on the notification data.

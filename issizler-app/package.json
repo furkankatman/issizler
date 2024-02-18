@@ -1,5 +1,4 @@
 {
-  "dependencies": {},
   "devDependencies": {
     "@hmscore/cordova-plugin-hms-push": "^6.3.0-304",
     "cordova-android": "^9.0.0",
