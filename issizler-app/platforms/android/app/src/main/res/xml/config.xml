@@ -30,5 +30,4 @@
     <icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
     <allow-navigation href="*" />
-    <allow-navigation href="*" />
 </widget>
