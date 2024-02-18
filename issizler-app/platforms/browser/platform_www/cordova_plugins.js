@@ -28,10 +28,10 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-plugin-whitelist": "1.3.4",
     "cordova-plugin-browsersync-gen2": "1.1.7",
     "cordova-plugin-fcm": "2.1.2",
-    "cordova-plugin-vibration": "3.1.1"
+    "cordova-plugin-vibration": "3.1.1",
+    "cordova-plugin-whitelist": "1.3.4"
 }
 // BOTTOM OF METADATA
 });
