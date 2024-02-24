@@ -50,6 +50,7 @@ try {
           .equalTo($scope.Username)
           .once("value")
           .then(function (snapshot) {
+            $scope.UsersFound = []
             if (snapshot.numChildren() == 0) {
               $scope.NoUserFound = true;
               navigator.vibrate(100);
