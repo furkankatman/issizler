@@ -1,7 +1,7 @@
 try {
   angular
     .module("issizlerApp")
-    .controller("InvitesController", function ($scope) {
+    .controller("InvitesController", function ($scope, $mdDialog) {
       console.log("Invites");
       $scope.Username = "";
       const invitesRef = $scope.fib.db.ref("Invites");
@@ -50,12 +50,26 @@ try {
           .equalTo($scope.Username)
           .once("value")
           .then(function (snapshot) {
-            snapshot.forEach((element) => {
-              $scope.UsersFound.push(element.val());
-            });
-            setTimeout(() => {
-              $scope.$apply();
-            }, 100);
+            if (snapshot.numChildren() == 0) {
+              $scope.NoUserFound = true;
+              navigator.vibrate(100);
+              var alert = $mdDialog
+                .alert()
+                .title("Uyari")
+                .textContent("Kullanici bulunamadi")
+                .ariaLabel("Lucky day")
+                .targetEvent(null)
+                .ok("Tamam");
+              $mdDialog.show(alert);
+            }
+            else {
+              snapshot.forEach((element) => {
+                $scope.UsersFound.push(element.val());
+              });
+              setTimeout(() => {
+                $scope.$apply();
+              }, 100);
+            }
           });
       };
 
