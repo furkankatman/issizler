@@ -20,6 +20,16 @@ angular
             var errorCode = error.code;
             var errorMessage = error.message;
             // ...
+            if (error.code == "auth/weak-password") {
+              const alert = $mdDialog.alert({
+                title: "Uyarı",
+                textContent: "Parolaniz cok zayif",
+                ok: "Tamam",
+              });
+              $mdDialog.show(alert).finally(function () {
+                alert = undefined;
+              });
+            }
           });
       };
       $scope.Login = function () {
