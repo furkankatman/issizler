@@ -5,11 +5,7 @@
 
       <div ng-repeat="game in Games">
         <div>
-          <md-button
-            ng-click="setActiveGame(game)"
-            md-colors="{background:'pink-700'}"
-            class="md-raised"
-          >
+          <md-button ng-click="setActiveGame(game)" md-colors="{background:'pink-700'}" class="md-raised">
             {{game.Player1Username==los.get("User").displayName?game.Player2Username:game.Player1Username}}
           </md-button>
         </div>
@@ -20,13 +16,10 @@
       <md-card>
         <div layout="row" layout-align="space-between start">
           <div class="GameTL" layout="column">
-            <b class="title" md-colors="{background:'yellow-700'}"
-              >{{Today|date:'dd.MM.yyyy'}}</b
-            >
+            <b class="title" md-colors="{background:'yellow-700'}">{{Today|date:'dd.MM.yyyy'}}</b>
           </div>
           <span>Kelime Puanı:{{WordPoint.val}}</span>
-          <span class="Badword" md-colors="{background:'red-A200'}"
-            >Soru Uygunsuz!
+          <span class="Badword" md-colors="{background:'red-A200'}">Soru Uygunsuz!
           </span>
         </div>
         <div class="LetterOuterBox" layout="column">
@@ -38,11 +31,7 @@
             <span>{{ActiveQuestion.Definition}}</span>
           </div>
           <div layout="layout-row" layout-align="center start">
-            <div
-              class="Letter"
-              ng-click="OpenLetter($index)"
-              ng-repeat="letter in QuestionWordArray track by $index"
-            >
+            <div class="Letter" ng-click="OpenLetter($index)" ng-repeat="letter in QuestionWordArray track by $index">
               <span ng-show="letter.Visible">{{letter.Letter}}</span>
             </div>
           </div>
@@ -51,27 +40,16 @@
             <div>
               <md-input-container>
                 <label for="">Tahmin Et</label>
-                <input
-                  type="text"
-                  autocomplete="off"
-                  ng-model="GuessedWord2.val"
-                />
+                <input type="text" autocomplete="off" ng-model="GuessedWord2.val" />
               </md-input-container>
             </div>
             <div layout="row" layout-align="space-between center">
-              <md-button
-                ng-click="Guess(GuessedWord2)"
-                md-colors="{background:'pink-700'}"
-                class="md-raised"
-              >
+              <md-button ng-click="Guess(GuessedWord2)" md-colors="{background:'pink-700'}" class="md-raised">
                 Kontrol
               </md-button>
               <span class="Signal animate__animated"> </span>
-              <md-button
-                ng-show="!IsFavorite(ActiveQuestion)"
-                ng-click="Favorite(ActiveQuestion)"
-                md-colors="{background:'indigo-A200'}"
-                ><i class="fa fa-star"></i> Favorilere Ekle
+              <md-button ng-show="!IsFavorite(ActiveQuestion)" ng-click="Favorite(ActiveQuestion)"
+                md-colors="{background:'indigo-A200'}"><i class="fa fa-star"></i> Favorilere Ekle
               </md-button>
             </div>
           </div>
@@ -87,48 +65,36 @@
               <img ng-src="{{ActiveQuestion.CreatedByPhoto}}" alt="" />
             </div>
           </div>
-          <div>
-            <span
-              ng-show="isPlayer1 && ActiveGame.Turn==1"
-              style="
+          <div>My Turn
+            <span ng-show="isPlayer1 && ActiveGame.Turn==1" style="
                 width: 15px;
                 height: 15px;
                 border-radius: 50%;
                 background-color: green;
                 display: block;
-              "
-            ></span>
-            <span
-              ng-show="isPlayer1 && ActiveGame.Turn==2"
-              style="
+              "></span>
+            <span ng-show="isPlayer1 && ActiveGame.Turn==2" style="
                 width: 15px;
                 height: 15px;
                 border-radius: 50%;
                 background-color: red;
                 display: block;
-              "
-            ></span>
+              "></span>
 
-            <span
-              ng-show="!isPlayer1 && ActiveGame.Turn==1"
-              style="
+            <span ng-show="!isPlayer1 && ActiveGame.Turn==1" style="
                 width: 15px;
                 height: 15px;
                 border-radius: 50%;
                 background-color: red;
                 display: block;
-              "
-            ></span>
-            <span
-              ng-show="!isPlayer1 && ActiveGame.Turn==2"
-              style="
+              "></span>
+            <span ng-show="!isPlayer1 && ActiveGame.Turn==2" style="
                 width: 15px;
                 height: 15px;
                 border-radius: 50%;
                 background-color: green;
                 display: block;
-              "
-            ></span>
+              "></span>
           </div>
         </div>
       </md-card>
