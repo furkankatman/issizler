@@ -34,7 +34,7 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
       $scope.OpenQuestionWord(0);
       //   $scope.ScoreHistories = [];
       const scoreHistoryRef = $scope.fib.db.ref("ScoreHistory");
-      var key = scoreHistoryRef.push().key;
+      let key = scoreHistoryRef.push().key;
       var question = {
         EmailAnsweredBy: $scope.los.get("User").email,
         UidAnsweredBy: $scope.los.get("User").uid,
@@ -43,6 +43,32 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
       };
       question.Created = moment().valueOf();
       scoreHistoryRef.child(key).set(question);
+      const scoreBoardRef = $scope.fib.db.ref("ScoreBoard");
+      scoreBoardRef
+        .orderByChild("uid")
+        .equalTo($scope.los.get("User").uid)
+        .once("value")
+        .then((snapshot) => {
+          if (snapshot.numChildren() > 0) {
+            let newValue = snapshot.val()[Object.keys(snapshot.val())[0]];
+
+            newValue.point = newValue.point + $scope.Game.GamePoint;
+            snapshot.forEach((x) => {
+              scoreBoardRef.child(x.key).update({ point: newValue.point });
+            });
+          } else {
+            console.log("ilk defa puan aldi");
+            let keyScore = scoreBoardRef.push().key;
+            let scoreBoardObject = {
+              uid: $scope.los.get("User").uid,
+              point: $scope.Game.GamePoint,
+              created: question.Created,
+              username: $scope.los.get("User").displayName,
+              picture: $scope.los.get("User").photoUrl,
+            };
+            scoreBoardRef.child(keyScore).set(scoreBoardObject);
+          }
+        });
 
       //alert("Bildiniz...");
     } else {
