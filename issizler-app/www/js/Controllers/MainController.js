@@ -48,7 +48,7 @@ angular
       $scope.fib = firebase;
       $scope.fib.db = firebase.database();
       $scope.los = localStorageService;
-
+      $scope.device = device;
       $scope.Logout = function () {
         $scope.fib
           .auth()
@@ -77,7 +77,8 @@ angular
           );
         $state.go("Home");
       };
-      if (device) console.log(device, "device////");
+      if ($scope.device) console.log($scope.device, "device////");
+
       $scope.fib.db
         .ref("Users")
         .orderByChild("Status")
