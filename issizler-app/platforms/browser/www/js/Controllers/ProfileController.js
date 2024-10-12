@@ -18,10 +18,15 @@ angular
           $scope.$apply();
         }, 100);
       });
-
-    $scope.copyToClipboard = function (x) {
-      window.clipboardData.setData(x);
-    };
+    if (!window.device) {
+      $scope.copyToClipboard = async function (x) {
+        await navigator.clipboard.writeText(x);
+      };
+    } else {
+      $scope.copyToClipboard = function (x) {
+        cordova.plugins.clipboard.copy(x);
+      };
+    }
 
     $scope.UpdateProfile = function () {
       if ($scope.ProfileImageBlob != null) {

@@ -135,6 +135,14 @@ angular
                     .then(function (snapshot) {
                       snapshot.forEach((element) => {
                         firebase
+                          .auth()
+                          .currentUser.updateProfile({
+                            displayName: element.val().Username,
+                          })
+                          .then(() => {
+                            $scope.los.set("User", firebase.auth().currentUser);
+                          });
+                        firebase
                           .database()
                           .ref("Users")
                           .child(element.key)

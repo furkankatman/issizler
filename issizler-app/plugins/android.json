@@ -21,6 +21,9 @@
     },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
+    },
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "io.amazingjobs.issizler"
     }
   },
   "dependent_plugins": {}

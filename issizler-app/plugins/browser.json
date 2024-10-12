@@ -21,6 +21,9 @@
     },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "io.cordova.hellocordova"
     }
   },
   "dependent_plugins": {}

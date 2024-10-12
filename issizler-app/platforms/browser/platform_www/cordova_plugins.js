@@ -37,6 +37,14 @@ module.exports = [
         "id": "cordova-plugin-device.DeviceProxy",
         "pluginId": "cordova-plugin-device",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-clipboard/www/clipboard.js",
+        "id": "cordova-clipboard.Clipboard",
+        "pluginId": "cordova-clipboard",
+        "clobbers": [
+            "cordova.plugins.clipboard"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -46,7 +54,8 @@ module.exports.metadata =
     "cordova-plugin-fcm": "2.1.2",
     "cordova-plugin-vibration": "3.1.1",
     "cordova-plugin-whitelist": "1.3.4",
-    "cordova-plugin-device": "3.0.0"
+    "cordova-plugin-device": "3.0.0",
+    "cordova-clipboard": "1.3.0"
 }
 // BOTTOM OF METADATA
 });
