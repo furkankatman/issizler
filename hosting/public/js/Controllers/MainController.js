@@ -77,7 +77,8 @@ angular
           );
         $state.go("Home");
       };
-      console.log(device, "device////");
+
+      if (device) console.log(device, "device////");
       $scope.fib.db
         .ref("Users")
         .orderByChild("Status")
