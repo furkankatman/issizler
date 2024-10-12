@@ -79,7 +79,7 @@ angular
         $state.go("Home");
       };
 
-      if ($scope.device) console.log($scope.device, "device////");
+      if (window.device) console.log(window.device, "device////");
       $scope.fib.db
         .ref("Users")
         .orderByChild("Status")
@@ -228,7 +228,7 @@ angular
       //Token generation
       if ($scope.los.get("User") != null) {
         setTimeout(() => {
-          if (device && device.platform != "browser")
+          if (window.device && window.device.platform != "browser")
             $scope.getToken_x($scope.los.get("User").uid);
         }, 2000);
       }
@@ -244,7 +244,7 @@ angular
           $scope.GetFavorites();
         }
       });
-      if (device && device.platform != "browser") {
+      if (window.device && window.device.platform != "browser") {
         $scope.getToken_x = function (uid) {
           //FCMPlugin.onTokenRefresh(function (token) {
           //    if (token === "" || token === null)

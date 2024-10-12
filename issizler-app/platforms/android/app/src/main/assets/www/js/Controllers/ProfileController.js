@@ -5,7 +5,7 @@ angular
     const wordPoolRef = $scope.fib.db.ref("WordPool");
     $scope.isEdit = false;
     $scope.User = {};
-    if (device && device.platform != "browser")
+    if (window.device && window.device.platform != "browser")
       $scope.getToken_x($scope.los.get("User").uid);
     profileRef
       .orderByChild("Uid")
