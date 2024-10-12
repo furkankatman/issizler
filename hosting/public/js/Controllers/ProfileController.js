@@ -19,6 +19,10 @@ angular
         }, 100);
       });
 
+    $scope.copyToClipboard = function (x) {
+      window.clipboardData.setData(x);
+    };
+
     $scope.UpdateProfile = function () {
       if ($scope.ProfileImageBlob != null) {
         $scope.isUploading = true;
