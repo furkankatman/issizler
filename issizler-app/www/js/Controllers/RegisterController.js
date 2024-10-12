@@ -182,7 +182,7 @@ angular
               });
           }
 
-          if (device.platform != "browser") $scope.getToken_x(uid);
+          if (device && device.platform != "browser") $scope.getToken_x(uid);
 
           $scope.$apply();
           $state.go("Home");
@@ -198,7 +198,7 @@ angular
         }
       });
 
-      if (device.platform != "browser") {
+      if (device && device.platform != "browser") {
         $scope.getToken_x = function (uid) {
           //FCMPlugin.onTokenRefresh(function (token) {
           //    if (token === "" || token === null)

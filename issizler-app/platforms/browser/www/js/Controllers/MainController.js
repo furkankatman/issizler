@@ -226,7 +226,7 @@ angular
       //Token generation
       if ($scope.los.get("User") != null) {
         setTimeout(() => {
-          if (device.platform != "browser")
+          if (device && device.platform != "browser")
             $scope.getToken_x($scope.los.get("User").uid);
         }, 2000);
       }
@@ -242,7 +242,7 @@ angular
           $scope.GetFavorites();
         }
       });
-      if (device.platform != "browser") {
+      if (device && device.platform != "browser") {
         $scope.getToken_x = function (uid) {
           //FCMPlugin.onTokenRefresh(function (token) {
           //    if (token === "" || token === null)
