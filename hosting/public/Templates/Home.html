@@ -1,0 +1,91 @@
+<md-content md-swipe-left="onSwipeLeft($event, $target)">
+  <md-card>
+    <div layout="row" class="HomeButtonPairs">
+      <md-button
+        flex="50"
+        md-colors="{background:'grey-200'}"
+        class="md-raised"
+        ng-click="los.get('User')!=null?state.go('Settings'):PleaseLogin($event)"
+      >
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <span> Ayarlar</span>
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      </md-button>
+      <md-button
+        flex="50"
+        md-colors="{background:'amber-A200'}"
+        class="md-raised"
+        ng-click="los.get('User')!=null?state.go('WordPool'):PleaseLogin($event)"
+      >
+        <i class="fa fa-book" aria-hidden="true"></i> <span>Kelime Havuzu</span>
+        <i class="fa fa-book" aria-hidden="true"></i>
+      </md-button>
+    </div>
+    <div layout="row" class="HomeButtonPairs">
+      <md-button
+        md-colors="{background:'pink-700'}"
+        class="md-raised"
+        ng-click="los.get('User')!=null?state.go('FavoriteWords'):PleaseLogin($event)"
+      >
+        <i class="fa fa-star" aria-hidden="true"></i>
+        <span>Favori Kelimeler</span>
+        <i class="fa fa-star" aria-hidden="true"></i>
+      </md-button>
+      <md-button
+        ng-click="state.go('LeaderBoard')"
+        md-colors="{background:'green'}"
+      >
+        <i class="fa fa-trophy"></i>
+        <b>Liderlik Tablosu</b>
+        <i class="fa fa-trophy"></i>
+      </md-button>
+    </div>
+    <md-button
+      md-colors="{background:'grey-900'}"
+      ng-click="los.get('User')!=null?ShowGameSetting=true:PleaseLogin($event)"
+      class="md-raised StartButton"
+    >
+      <i class="fa fa-flag-checkered"></i>
+      <!-- ng-click="state.go('Game')"  -->
+      Oyuna Başla
+      <i class="fa fa-flag-checkered"></i>
+    </md-button>
+  </md-card>
+  <md-card
+    layout="column"
+    layout-align="start stretch"
+    ng-show="ShowGameSetting"
+    class="ShowGameSettig"
+  >
+    <md-button
+      ng-click="StartGame(GameTypes.Training)"
+      md-colors="{background:'grey-900'}"
+    >
+      <b>Kendi Kendine [ Antrenman ]</b>
+    </md-button>
+
+    <md-button ng-show="false" md-colors="{background:'red'}">
+      <b>Rastgele Rakip</b>
+    </md-button>
+
+    <md-button ng-click="state.go('Invites')" md-colors="{background:'yellow'}">
+      <b>Kullanıcı Adıyla</b>
+    </md-button>
+    <md-button
+      md-colors="{background:'purple-600'}"
+      ng-click="state.go('StartedGames')"
+    >
+      <b>Açık Oyunlarım</b>
+    </md-button>
+    <md-button
+      layout="row"
+      layout-align="center center"
+      md-colors="{'background':'red-700'}"
+      ng-click="state.go('Invites')"
+    >
+      <img src="img/war.png" width="20" height="20" />
+      <b style="margin: 0px 6px">Davetler</b>
+      <img src="img/war.png" width="20" height="20" />
+    </md-button>
+  </md-card>
+</md-content>

@@ -1,0 +1,16 @@
+<md-content>
+  <md-card>
+    <h1>Leaders Are Here</h1>
+
+    <div>
+      <div
+        ng-repeat="player in Score.PlayersScores |orderBy:'Score':'true'"
+        class="LeaderBoardRow"
+      >
+        <span>#{{$index+1}}-</span>
+        <span>{{player.EmailAnsweredBy}}</span>:
+        <span style="font-weight: bold">{{player.Score}}</span>
+      </div>
+    </div>
+  </md-card>
+</md-content>

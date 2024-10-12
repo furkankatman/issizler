@@ -1,0 +1,31 @@
+<md-content>
+  <md-card>
+    <h2>Kelime Ekle</h2>
+    <md-input-container>
+      <label for="word">Kelimenizi yazın</label>
+      <input type="text" ng-model="WordToAdd.Value" />
+    </md-input-container>
+    <md-input-container>
+      <label for="word">Kelimenizin açıklamasını yazın</label>
+      <input type="text" ng-model="WordToAdd.Definition" />
+    </md-input-container>
+    <md-button ng-click="AddWord()" class="md-raised"> Ekle </md-button>
+  </md-card>
+  <md-card>
+    <div class="WordList" ng-repeat="word in Words">
+      <div md-colors="{background:'grey-900'}">
+        <span>Kelime:</span>
+        <span>{{word.Value}}</span>
+      </div>
+      <div md-colors="{background:'green-900'}">
+        <span>Tanımı:</span>
+        <span>{{word.Definition}}</span>
+      </div>
+      <div md-colors="{background:'grey-900'}">
+        <span>Oluşturan:</span>
+        <span>{{word.CreatedByUsername}}</span>
+        <img ng-src="{{word.CreatedByPhoto}}" alt="Oluşturan Kişi" />
+      </div>
+    </div>
+  </md-card>
+</md-content>

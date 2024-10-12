@@ -54,7 +54,12 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
 
             newValue.point = newValue.point + $scope.Game.GamePoint;
             snapshot.forEach((x) => {
-              scoreBoardRef.child(x.key).update({ point: newValue.point });
+              scoreBoardRef.child(x.key).update({
+                point: newValue.point,
+                picture: $scope.los.get("User").photoUrl
+                  ? $scope.los.get("User").photoUrl
+                  : "",
+              });
             });
           } else {
             console.log("ilk defa puan aldi");

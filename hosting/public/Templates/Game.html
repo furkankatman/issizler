@@ -1,0 +1,67 @@
+<md-content>
+  <md-card>
+    <div layout="row" layout-align="space-between start">
+      <div class="GameTL" layout="column">
+        <b class="title" md-colors="{background:'yellow-700'}"
+          >{{Today|date:'dd.MM.yyyy'}}</b
+        >
+      </div>
+      <span class="Badword" md-colors="{background:'red-A200'}"
+        >Soru Uygunsuz!
+      </span>
+    </div>
+    <div class="LetterOuterBox" layout="column">
+      <div layout="row" layout-align="center start">
+        <div>
+          <i class="fa fa-info-circle"></i>
+          <span>İpucu:</span>
+        </div>
+        <span>{{Game.QuestionWord.Definition}}</span>
+      </div>
+      <div layout="layout-row" layout-align="center start">
+        <div
+          class="Letter"
+          ng-click="OpenLetter($index)"
+          ng-repeat="letter in Game.QuestionWordArray track by $index"
+        >
+          <span ng-show="letter.Visible">{{letter.Letter}}</span>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <md-input-container>
+            <label for="">Tahmin Et</label>
+            <input type="text" autocomplete="off" ng-model="GuessedWord" />
+          </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-between center">
+          <md-button
+            ng-click="Guess()"
+            md-colors="{background:'pink-700'}"
+            class="md-raised"
+          >
+            Kontrol
+          </md-button>
+          <span class="Signal animate__animated"> </span>
+          <md-button
+            ng-show="!IsFavorite(Game.QuestionWord)"
+            ng-click="Favorite(Game.QuestionWord)"
+            md-colors="{background:'indigo-A200'}"
+            ><i class="fa fa-star"></i> Favorilere Ekle
+          </md-button>
+        </div>
+      </div>
+    </div>
+  </md-card>
+  <md-card>
+    <div class="AskedBy" layout="row" layout-align="start center">
+      <span>Sorunun Sahibi: </span>
+      <span class="seperator"></span>
+      <div layout="row" layout-align="end center">
+        <b>{{Game.QuestionWord.CreatedByUsername}}</b>
+        <img ng-src="{{Game.QuestionWord.CreatedByPhoto}}" alt="" />
+      </div>
+    </div>
+  </md-card>
+</md-content>
