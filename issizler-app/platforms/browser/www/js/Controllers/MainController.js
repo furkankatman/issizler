@@ -56,10 +56,18 @@ angular
           .then(
             function () {
               console.log("Signed Out");
-              $scope.fib.db.ref("Users").orderByChild("Uid").equalTo($scope.los.get("User").uid).once("value").then((snapshot) => {
-                console.log(snapshot)
-                $scope.fib.db.ref("Users").child(Object.keys(snapshot.val())[0]).update({ Status: 0 })
-              })
+              $scope.fib.db
+                .ref("Users")
+                .orderByChild("Uid")
+                .equalTo($scope.los.get("User").uid)
+                .once("value")
+                .then((snapshot) => {
+                  console.log(snapshot);
+                  $scope.fib.db
+                    .ref("Users")
+                    .child(Object.keys(snapshot.val())[0])
+                    .update({ Status: 0 });
+                });
               localStorage.clear();
               $scope.$apply();
             },
@@ -69,7 +77,7 @@ angular
           );
         $state.go("Home");
       };
-
+      console.log(device, "device////");
       $scope.fib.db
         .ref("Users")
         .orderByChild("Status")
@@ -218,76 +226,94 @@ angular
       //Token generation
       if ($scope.los.get("User") != null) {
         setTimeout(() => {
-          $scope.getToken_x($scope.los.get("User").uid);
+          if (device.platform != "browser")
+            $scope.getToken_x($scope.los.get("User").uid);
         }, 2000);
       }
       $transitions.onSuccess({}, function (transition) {
         console.log(
           "Successful Transition from " +
-          transition.from().name +
-          " to " +
-          transition.to().name
+            transition.from().name +
+            " to " +
+            transition.to().name
         );
         if (transition.to().name == "Home" && $scope.los.get("User") != null) {
           $scope.SetScoreBoards();
           $scope.GetFavorites();
         }
       });
+      if (device.platform != "browser") {
+        $scope.getToken_x = function (uid) {
+          //FCMPlugin.onTokenRefresh(function (token) {
+          //    if (token === "" || token === null)
+          //        return;
+          //    // save this server-side and use it to push notifications to this device
+          //    if (token !== null && token !== $scope.los.get("Driver").Token) {
+          //        $scope.ptoken = token;
+          //        token = {
+          //            "IsActive": true,
+          //            "Token": "",
+          //            "Created": "",
+          //            "Driver": {}
+          //        };
+          //        token.Driver = $scope.los.get("Driver");
+          //        token.Created = moment.utc().format();
+          //        token.Token = $scope.ptoken;
+          //        $http.post(DevServiceUrl[0].url + "/push/AddNewToken", token).then(function (res) {
 
-      $scope.getToken_x = function (uid) {
-        //FCMPlugin.onTokenRefresh(function (token) {
-        //    if (token === "" || token === null)
-        //        return;
-        //    // save this server-side and use it to push notifications to this device
-        //    if (token !== null && token !== $scope.los.get("Driver").Token) {
-        //        $scope.ptoken = token;
-        //        token = {
-        //            "IsActive": true,
-        //            "Token": "",
-        //            "Created": "",
-        //            "Driver": {}
-        //        };
-        //        token.Driver = $scope.los.get("Driver");
-        //        token.Created = moment.utc().format();
-        //        token.Token = $scope.ptoken;
-        //        $http.post(DevServiceUrl[0].url + "/push/AddNewToken", token).then(function (res) {
+          //        });
+          //    }
+          //});
 
-        //        });
-        //    }
-        //});
+          FCMPlugin.getToken(function (token) {
+            if (token === "" || token === null) {
+              alert("no token");
+              return;
+            }
+            $scope.ptoken = token;
+            token = {
+              Token: "",
+              Created: "",
+              Uid: "",
+            };
+            token.Created = moment.utc().format();
+            token.Token = $scope.ptoken;
+            token.Uid = uid;
 
-        FCMPlugin.getToken(function (token) {
-          if (token === "" || token === null) {
-            alert("no token");
-            return;
-          }
-          $scope.ptoken = token;
-          token = {
-            Token: "",
-            Created: "",
-            Uid: "",
-          };
-          token.Created = moment.utc().format();
-          token.Token = $scope.ptoken;
-          token.Uid = uid;
-
-          $scope.fib.db
-            .ref("PushTokens")
-            .child(uid)
-            .set(token)
-            .catch(function (err) { });
-        });
-        //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
-        //Here you define your application behaviour based on the notification data.
-        FCMPlugin.onNotification(function (data) {
-          if ($scope.Notifications === null) $scope.Notifications = new Array();
-          if (data.wasTapped) {
-            //Notification was received on device tray and tapped by the user.
-            //$scope.Notifications.push(data);
-            if (data.type == "NF") {
-              $scope.Notifications.NF = true;
+            $scope.fib.db
+              .ref("PushTokens")
+              .child(uid)
+              .set(token)
+              .catch(function (err) {});
+          });
+          //FCMPlugin.onNotification( onNotificationCallback(data), successCallback(msg), errorCallback(err) )
+          //Here you define your application behaviour based on the notification data.
+          FCMPlugin.onNotification(function (data) {
+            if ($scope.Notifications === null)
+              $scope.Notifications = new Array();
+            if (data.wasTapped) {
+              //Notification was received on device tray and tapped by the user.
+              //$scope.Notifications.push(data);
+              if (data.type == "NF") {
+                $scope.Notifications.NF = true;
+              } else {
+                if ((data.type = "NMYC")) {
+                  $firebaseStorage(
+                    firebase
+                      .storage()
+                      .ref("DriverImages/" + data.SenderUid + ".jpg")
+                  )
+                    .$getDownloadURL()
+                    .then(function (url) {
+                      data.pic = url;
+                    });
+                }
+                $scope.Notifications.push(data);
+              }
+              $scope.$apply();
             } else {
-              if ((data.type = "NMYC")) {
+              //Notification was received in foreground. Maybe the user needs to be notified.
+              if (data.type == "NMYC") {
                 $firebaseStorage(
                   firebase
                     .storage()
@@ -299,28 +325,13 @@ angular
                   });
               }
               $scope.Notifications.push(data);
+              if (data.type == "NF") {
+                $scope.Notifications.NF = true;
+              }
+              $scope.$apply();
             }
-            $scope.$apply();
-          } else {
-            //Notification was received in foreground. Maybe the user needs to be notified.
-            if (data.type == "NMYC") {
-              $firebaseStorage(
-                firebase
-                  .storage()
-                  .ref("DriverImages/" + data.SenderUid + ".jpg")
-              )
-                .$getDownloadURL()
-                .then(function (url) {
-                  data.pic = url;
-                });
-            }
-            $scope.Notifications.push(data);
-            if (data.type == "NF") {
-              $scope.Notifications.NF = true;
-            }
-            $scope.$apply();
-          }
-        });
-      };
+          });
+        };
+      }
     }
   );

@@ -18,6 +18,9 @@
     },
     "cordova-plugin-vibration": {
       "PACKAGE_NAME": "io.amazingjobs.issizler"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "io.amazingjobs.issizler"
     }
   },
   "dependent_plugins": {}

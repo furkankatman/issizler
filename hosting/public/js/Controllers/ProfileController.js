@@ -5,7 +5,8 @@ angular
     const wordPoolRef = $scope.fib.db.ref("WordPool");
     $scope.isEdit = false;
     $scope.User = {};
-    $scope.getToken_x($scope.los.get("User").uid);
+    if (device.platform != "browser")
+      $scope.getToken_x($scope.los.get("User").uid);
     profileRef
       .orderByChild("Uid")
       .equalTo($scope.los.get("User").uid)
@@ -46,15 +47,18 @@ angular
                 .currentUser.updateProfile({ photoURL: downloadURLF })
                 .then(() => {
                   $scope.los.set("User", firebase.auth().currentUser);
-                  wordPoolRef.orderByChild("CreatedByEmail").equalTo($scope.los.get("User").email).once("value", function (snapshot) {
-                    snapshot.forEach((val) => {
-                      console.log(val.val());
-                      const u = val.val();
-                      u.CreatedByUsername = $scope.User.Username
-                      u.CreatedByPhoto = downloadURLF;
-                      wordPoolRef.child(val.key).set(u);
-                    })
-                  })
+                  wordPoolRef
+                    .orderByChild("CreatedByEmail")
+                    .equalTo($scope.los.get("User").email)
+                    .once("value", function (snapshot) {
+                      snapshot.forEach((val) => {
+                        console.log(val.val());
+                        const u = val.val();
+                        u.CreatedByUsername = $scope.User.Username;
+                        u.CreatedByPhoto = downloadURLF;
+                        wordPoolRef.child(val.key).set(u);
+                      });
+                    });
                 });
               profileRef
                 .orderByChild("Uid")
@@ -87,14 +91,17 @@ angular
               .then(function () {
                 setTimeout(() => {
                   $scope.isEdit = false;
-                  wordPoolRef.orderByChild("CreatedByEmail").equalTo($scope.los.get("User").email).once("value", function (snapshot) {
-                    snapshot.forEach((val) => {
-                      console.log(val.val());
-                      const u = val.val();
-                      u.CreatedByUsername = $scope.User.Username
-                      wordPoolRef.child(val.key).set(u);
-                    })
-                  })
+                  wordPoolRef
+                    .orderByChild("CreatedByEmail")
+                    .equalTo($scope.los.get("User").email)
+                    .once("value", function (snapshot) {
+                      snapshot.forEach((val) => {
+                        console.log(val.val());
+                        const u = val.val();
+                        u.CreatedByUsername = $scope.User.Username;
+                        wordPoolRef.child(val.key).set(u);
+                      });
+                    });
 
                   $scope.$apply();
                 }, 100);
@@ -134,7 +141,7 @@ angular
         xhr.send();
         $scope.$apply();
       }
-      function cameraError(message) { }
+      function cameraError(message) {}
       function response(e) {
         var urlCreator = window.URL || window.webkitURL;
         $scope.ProfileImagePreview = urlCreator.createObjectURL(this.response);
