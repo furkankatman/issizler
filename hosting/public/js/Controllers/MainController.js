@@ -48,7 +48,6 @@ angular
       $scope.fib = firebase;
       $scope.fib.db = firebase.database();
       $scope.los = localStorageService;
-      $scope.device = device;
 
       $scope.Logout = function () {
         $scope.fib
