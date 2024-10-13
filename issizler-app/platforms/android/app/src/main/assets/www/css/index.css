@@ -29,7 +29,7 @@ body {
   -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
   -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
-  background-color: green;
+  background-color: #4e342e;
   /* font-family: "HelveticaNeue-Light", "HelveticaNeue", Helvetica, Arial,
     sans-serif; */
   font-family: "Truculenta", sans-serif;
@@ -41,9 +41,11 @@ body {
   width: 100%;
 }
 
-/* md-toolbar.md-altTheme-theme.md-hue-2:not(.md-menu-toolbar) {
-  background-color: #f44336;
-} */
+
+ md-toolbar.md-altTheme-theme.md-hue-2:not(.md-menu-toolbar) {
+  background-color: #4e342e;
+  color: white;
+} 
 md-sidenav.md-altTheme-theme,
 md-sidenav.md-altTheme-theme md-content {
   background-color: #ffeb3b;
@@ -173,7 +175,7 @@ md-content {
   border-radius: 4px;
 }
 .ScoreSummary {
-  background: #9c27b0;
+  background: #ff9800;
   border-radius: 4px;
   padding: 10px;
   margin: 10px 0px 0px 0px;
