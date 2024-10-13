@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-* {
+ * {
   -webkit-tap-highlight-color: rgba(
     0,
     0,
@@ -187,9 +187,13 @@ md-content {
   display: flex;
 }
 .GameTL {
-  background-color: #03a9f4;
+  background-color: #F3E5F5;
   border-radius: 4px;
   margin: 4px;
+}
+.GameTL .title{
+  background-color: #00000070;
+  color: white;
 }
 .AskedBy {
   background-color: beige;

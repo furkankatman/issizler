@@ -37,6 +37,7 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
       let key = scoreHistoryRef.push().key;
       var question = {
         EmailAnsweredBy: $scope.los.get("User").email,
+        UsernameAnsweredBy: $scope.los.get("User").displayName,
         UidAnsweredBy: $scope.los.get("User").uid,
         QuestionAnswered: $scope.Game.QuestionWord,
         Score: $scope.Game.GamePoint,
@@ -69,7 +70,9 @@ angular.module("issizlerApp").controller("GameController", function ($scope) {
               point: $scope.Game.GamePoint,
               created: question.Created,
               username: $scope.los.get("User").displayName,
-              picture: $scope.los.get("User").photoUrl,
+              picture: $scope.los.get("User").photoUrl
+                ? $scope.los.get("User").photoUrl
+                : "",
             };
             scoreBoardRef.child(keyScore).set(scoreBoardObject);
           }

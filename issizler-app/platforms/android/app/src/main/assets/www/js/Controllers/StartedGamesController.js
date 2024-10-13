@@ -476,6 +476,7 @@ try {
           var question = {
             EmailAnsweredBy: $scope.los.get("User").email,
             UidAnsweredBy: $scope.los.get("User").uid,
+            UsernameAnsweredBy: $scope.los.get("User").displayName,
             QuestionAnswered: $scope.ActiveQuestion,
             Score: $scope.WordPoint.val,
             GameKey: $scope.ActiveGameKey,
