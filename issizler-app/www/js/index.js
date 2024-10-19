@@ -81,22 +81,29 @@ var app = {
         $urlRouterProvider.otherwise("/Home");
         // Now set up the states
         if (localStorage.getItem("issizlerApp.User") != null) {
-          firebase
-            .database()
-            .ref("Users")
-            .orderByChild("Uid")
-            .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
-            .once("value")
-            .then(function (snapshot) {
-              snapshot.forEach((element) => {
-                firebase
-                  .database()
-                  .ref("Users")
-                  .child(element.key)
-                  .update({ Status: 1 });
+          clearInterval(localStorage.getItem("statusIntervalId"));
+          var statusIntervalId = setInterval(() => {
+            firebase
+              .database()
+              .ref("Users")
+              .orderByChild("Uid")
+              .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
+              .once("value")
+              .then(function (snapshot) {
+                snapshot.forEach((element) => {
+                  firebase
+                    .database()
+                    .ref("Users")
+                    .child(element.key)
+                    .update({ LastOnline: moment.utc().unix() });
+                });
               });
-            });
+          }, 60000);
         }
+        if (localStorage.getItem("statusIntervalId") == null) {
+          localStorage.setItem("statusIntervalId", statusIntervalId);
+        }
+
         $stateProvider
           .state("Home", {
             url: "/Home",
@@ -151,64 +158,9 @@ var app = {
       });
     angular.bootstrap(document.body, ["issizlerApp"]);
   },
-  onDevicePaused: function () {
-    console.log("paused");
-    if (localStorage.getItem("issizlerApp.User") != null) {
-      firebase
-        .database()
-        .ref("Users")
-        .orderByChild("Uid")
-        .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
-        .once("value")
-        .then(function (snapshot) {
-          snapshot.forEach((element) => {
-            firebase
-              .database()
-              .ref("Users")
-              .child(element.key)
-              .update({ Status: 0 });
-          });
-        });
-    }
-  },
-  onDeviceResumed: function () {
-    if (localStorage.getItem("issizlerApp.User") != null) {
-      firebase
-        .database()
-        .ref("Users")
-        .orderByChild("Uid")
-        .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
-        .once("value")
-        .then(function (snapshot) {
-          snapshot.forEach((element) => {
-            firebase
-              .database()
-              .ref("Users")
-              .child(element.key)
-              .update({ Status: 1 });
-          });
-        });
-    }
-  },
-  onMenuKeyDown: function () {
-    if (localStorage.getItem("issizlerApp.User") != null) {
-      firebase
-        .database()
-        .ref("Users")
-        .orderByChild("Uid")
-        .equalTo(JSON.parse(localStorage.getItem("issizlerApp.User")).uid)
-        .once("value")
-        .then(function (snapshot) {
-          snapshot.forEach((element) => {
-            firebase
-              .database()
-              .ref("Users")
-              .child(element.key)
-              .update({ Status: 0 });
-          });
-        });
-    }
-  },
+  onDevicePaused: function () {},
+  onDeviceResumed: function () {},
+  onMenuKeyDown: function () {},
 };
 
 app.initialize();
